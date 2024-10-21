@@ -2,6 +2,8 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
+const Fuel = require("./models/country");
+const fs = require("fs/promises");
 
 const app = express();
 app.use(cors());
@@ -9,7 +11,9 @@ app.use(cors());
 mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Connected to Database"));
+db.once("open", async () => {
+  console.log("connected to the database");
+});
 
 app.use(express.json());
 
