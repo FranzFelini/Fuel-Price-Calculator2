@@ -13,6 +13,7 @@ const scrapeFuelPrices = async (url) => {
   const page = await browser.newPage();
 
   let data = [];
+
   try {
     console.log(`Navigating to ${url}`);
     await page.goto(url, { waitUntil: "networkidle2" });
@@ -39,9 +40,6 @@ const scrapeFuelPrices = async (url) => {
             diesel_price_str.replace(/[^\d.-]/g, "")
           );
 
-          console.log(
-            `Country: ${country}, Gasoline Price: ${gasoline_price}, Diesel Price: ${diesel_price}`
-          );
           if (!isNaN(gasoline_price) && !isNaN(diesel_price)) {
             regionData.push({ name: country, gasoline_price, diesel_price });
           }
@@ -50,8 +48,8 @@ const scrapeFuelPrices = async (url) => {
       console.log("Scraped data:", regionData);
       return regionData;
     });
-  } catch (error) {
-    console.error("Error while navigating the page:", error);
+  } catch (err) {
+    console.error(err);
   } finally {
     await browser.close();
   }
@@ -71,9 +69,9 @@ const updateFuelPrices = async () => {
 
   if (allData.length > 0) {
     await Fuel.insertMany(allData);
-    console.log(`Updated fuel prices for all regions`);
+    console.log(`Updated fuel prices`);
   } else {
-    console.log(`No valid data to update for any region`);
+    console.log(`No valid data to update`);
   }
 };
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
-const Currency = require("../models/currency"); // Ensure this path is correct
+const Currency = require("../models/currency");
 
 const url = "https://currencyfreaks.com/historical/exchange-rates";
 
@@ -11,7 +11,6 @@ const scrapeCurrencyRates = async (url) => {
   let ratedata = [];
 
   try {
-    console.log(`Navigating to ${url}`);
     await page.goto(url, { waitUntil: "networkidle2" });
 
     ratedata = await page.evaluate(() => {
@@ -28,8 +27,6 @@ const scrapeCurrencyRates = async (url) => {
           const currencyRate = cells[3].innerText.trim();
           const currencydata = parseFloat(currencyRate.replace(/[^\d.-]/g, ""));
 
-          console.log(`Country: ${country}, Rate: ${currencydata}`);
-
           if (!isNaN(currencydata)) {
             data.push({ name: country, value: currencydata });
           }
@@ -39,7 +36,7 @@ const scrapeCurrencyRates = async (url) => {
       return data;
     });
   } catch (error) {
-    console.error("Error while navigating the page:", error);
+    console.error("Error while navigating:", error);
   } finally {
     await browser.close();
   }
@@ -58,6 +55,6 @@ const scrapeCurrencyRates = async (url) => {
       console.log("No data to insert.");
     }
   } catch (err) {
-    console.error("Error during scraping or insertion:", err);
+    console.error(err);
   }
 })();

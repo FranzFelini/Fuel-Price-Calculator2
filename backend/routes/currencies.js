@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const Fuel = require("../models/currency");
 const Currency = require("../models/currency");
 
 router.get("/", async (req, res) => {

@@ -3,7 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 const Fuel = require("./models/country");
-const { updateFuelPrices } = require("./scraper/scraper");
+const { updateFuelPrices } = require("./Scrapers/scraper");
 const cron = require("node-cron");
 
 const app = express();
@@ -37,4 +37,4 @@ cron.schedule("0 0 * * *", async () => {
   }
 });
 
-app.listen(3001, () => console.log("Server started on port 3001"));
+app.listen(3001, () => console.log("Server started"));

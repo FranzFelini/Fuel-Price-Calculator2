@@ -1,14 +1,14 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
-import Buttonrow from "./buttonrowcmp";
-import Table from "./countrytablecmp";
-import Footer from "./footercmp";
-import Heading from "./headingcmp";
-import Input from "./litersinputcmp";
-import Selector from "./selectorscmp";
-import Filter from "./tablefiltercmp";
-import Price from "./totalpricecmp";
+import Buttonrow from "./components/buttonrowcmp";
+import Table from "./components/countrytablecmp";
+import Footer from "./components/footercmp";
+import Heading from "./components/headingcmp";
+import Input from "./components/litersinputcmp";
+import Selector from "./components/selectorscmp";
+import Filter from "./components/tablefiltercmp";
+import Price from "./components/totalpricecmp";
 
 function App() {
   const [data, setData] = useState([]); // Data fetcher
