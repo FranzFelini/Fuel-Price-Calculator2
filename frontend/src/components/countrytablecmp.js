@@ -5,15 +5,15 @@ const Table = ({ filteredCountries }) => {
       style={{ maxHeight: "630px", width: "100%" }}
     >
       <table className=" border-[0.2px] h-[2em] w-full border-white rounded-xl">
-        <thead className="bg-violet-400 h-[4em]">
+        <thead className="bg-violet-400 h-[3.5em]">
           <tr>
-            <th className="sticky top-0  border-x-[0.1px] text-lg px-4 py-2 text-white font-thin bg-gray-900">
+            <th className="sticky top-0  border-x-[0.1px] text-lg px-4 py-2 text-white font-thin bg-gray-800">
               COUNTRY
             </th>
-            <th className="sticky top-0  border-x-[0.1px]  text-lg px-4 py-2 text-white font-thin bg-gray-900">
+            <th className="sticky top-0  border-x-[0.1px]  text-lg px-4 py-2 text-white font-thin bg-gray-800">
               DIESEL PRICE
             </th>
-            <th className="sticky top-0 border-x-[0.1px]  text-lg px-4 py-2 text-white font-thin bg-gray-900">
+            <th className="sticky top-0 border-x-[0.1px]  text-lg px-4 py-2 text-white font-thin bg-gray-800">
               GASOLINE PRICE
             </th>
           </tr>
