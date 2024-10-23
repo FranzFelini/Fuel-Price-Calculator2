@@ -18,6 +18,7 @@ function App() {
   const [selectedFuel, setSelectedFuel] = useState(null); // Fuel type selector
   const [inputValue, setInputValue] = useState(0); // Input value
   const [priceToDisplay, setPriceToDisplay] = useState(null); // Price to display on button click
+  const [ConvertedPriceToDisplay, setConvertedPriceToDisplay] = useState(null); // Price to display on button click
   const [filter, setFilter] = useState(""); // Filter input
 
   const getData = async () => {
@@ -50,12 +51,10 @@ function App() {
 
   const handleFuelChange = (selectedOption) => {
     setSelectedFuel(selectedOption);
-    console.log("Selected fuel:", selectedOption);
   };
 
   const handleCurrencyChange = (selectedOption) => {
     setSelectedCurrency(selectedOption);
-    console.log("Selected currency:", selectedOption);
   };
 
   const handleInputChange = (event) => {
@@ -65,12 +64,10 @@ function App() {
     } else {
       setInputValue(0);
     }
-    console.log("Input liters:", liters);
   };
 
   const handleCountryChange = (selectedOption) => {
     setSelectedCountry(selectedOption);
-    console.log("Selected country:", selectedOption);
   };
 
   const calculatePrice = (liters) => {
@@ -87,9 +84,25 @@ function App() {
     return 0;
   };
 
+  const calculateConvertedPrice = (price) => {
+    if (selectedCurrency && price !== null) {
+      const currencyRate = parseFloat(selectedCurrency.rate);
+      if (!isNaN(currencyRate)) {
+        return price * currencyRate;
+      }
+    }
+    return 0;
+  };
+
   const handleGetPrice = () => {
     const price = calculatePrice(inputValue);
     setPriceToDisplay(price);
+  };
+
+  const handleGetConvertedPrice = () => {
+    const price = calculatePrice(inputValue);
+    const convertedPrice = calculateConvertedPrice(price);
+    setConvertedPriceToDisplay(convertedPrice);
   };
 
   const countryOptions = data.map((country) => ({
@@ -132,8 +145,16 @@ function App() {
         currnecyOptions={currencyOptions}
         currencydata={currencydata}
       />
-      <Price priceToDisplay={priceToDisplay} />
-      <Buttonrow handleGetPrice={handleGetPrice} />
+      <Price
+        priceToDisplay={priceToDisplay}
+        selectedCurrency={selectedCurrency}
+        ConvertedPriceToDisplay={ConvertedPriceToDisplay}
+      />
+
+      <Buttonrow
+        handleGetPrice={handleGetPrice}
+        handleGetConvertedPrice={handleGetConvertedPrice}
+      />
 
       <Filter setFilter={setFilter} filter={filter} />
       <Table filteredCountries={filteredCountries} />
