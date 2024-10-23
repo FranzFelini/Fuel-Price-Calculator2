@@ -4,17 +4,17 @@ const Table = ({ filteredCountries }) => {
       className="overflow-y-auto justify-center flex my-[3em] px-[3em]"
       style={{ maxHeight: "630px", width: "100%" }}
     >
-      <table className=" border-[0.2px] w-full border-white rounded-xl">
-        <thead className="bg-violet-400">
+      <table className=" border-[0.2px] h-[2em] w-full border-white rounded-xl">
+        <thead className="bg-violet-400 h-[4em]">
           <tr>
-            <th className="sticky top-0 border border-white border-x-2 px-4 py-2 text-black font-normal bg-violet-400">
-              Country
+            <th className="sticky top-0  border-x-[0.1px] text-lg px-4 py-2 text-white font-thin bg-gray-900">
+              COUNTRY
             </th>
-            <th className="sticky top-0 border border-white border-x-2 px-4 py-2 text-black font-normal bg-violet-400">
-              Diesel Price
+            <th className="sticky top-0  border-x-[0.1px]  text-lg px-4 py-2 text-white font-thin bg-gray-900">
+              DIESEL PRICE
             </th>
-            <th className="sticky top-0 border border-white border-x-2 px-4 py-2 text-black font-normal bg-violet-400">
-              Gasoline Price
+            <th className="sticky top-0 border-x-[0.1px]  text-lg px-4 py-2 text-white font-thin bg-gray-900">
+              GASOLINE PRICE
             </th>
           </tr>
         </thead>
