@@ -10,22 +10,20 @@ const Selector = ({
 }) => {
   return (
     <div>
-      <div className="justify-center flex">
-        <div className="flex flex-col relative w-[40em] bg-white h-[0.2px] mt-[-1.9em]"></div>
-      </div>
-      <div className="flex flex-row justify-center gap-[3.5em] items-center h-[7em] bg-inherit">
+      <div className="flex flex-row justify-center gap-[3.5em] items-center h-[7em] bg-inherit mb-[-2.8em] mt-[2em]">
         <div className="items-center align-center justify-center">
           {data.length > 0 ? (
             <Select
               options={countryOptions}
-              className="w-[20em] text-white"
+              className="w-[20em] text-white sm:w-[20em]"
               onChange={handleCountryChange}
               placeholder="Select a country"
               styles={{
                 control: (base) => ({
                   ...base,
-                  backgroundColor: "inherit",
+                  backgroundColor: "black",
                   borderColor: "white",
+                  height: "3em",
                   color: "white",
                   "&:hover": {
                     borderColor: "rgb(167, 139, 250)",
@@ -59,13 +57,14 @@ const Selector = ({
         <div className="flex items-center align-center justify-center">
           <Select
             options={fuelOptions}
-            className="w-[20em] text-white"
+            className="w-[20em] text-white sm:w-[20em]"
             onChange={handleFuelChange}
             placeholder="Select fuel type"
             styles={{
               control: (base) => ({
                 ...base,
-                backgroundColor: "inherit",
+                backgroundColor: "black",
+                height: "3em",
                 borderColor: "white",
                 color: "white",
                 "&:hover": {

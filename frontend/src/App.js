@@ -2,24 +2,26 @@ import Axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Buttonrow from "./components/buttonrowcmp";
+import Convert from "./components/convertcmp";
 import Table from "./components/countrytablecmp";
 import Footer from "./components/footercmp";
 import Heading from "./components/headingcmp";
 import Input from "./components/litersinputcmp";
 import Selector from "./components/selectorscmp";
+import Singleprice from "./components/singlepricecmp";
 import Filter from "./components/tablefiltercmp";
 import Price from "./components/totalpricecmp";
 
 function App() {
-  const [data, setData] = useState([]); // Data fetcher
-  const [currencydata, setCurrencyData] = useState([]); // Currency Data fetcher
+  const [data, setData] = useState([]);
+  const [currencydata, setCurrencyData] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState(null); // Country selector
-  const [selectedFuel, setSelectedFuel] = useState(null); // Fuel type selector
-  const [inputValue, setInputValue] = useState(0); // Input value
-  const [priceToDisplay, setPriceToDisplay] = useState(null); // Price to display on button click
-  const [ConvertedPriceToDisplay, setConvertedPriceToDisplay] = useState(null); // Price to display on button click
-  const [filter, setFilter] = useState(""); // Filter input
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedFuel, setSelectedFuel] = useState(null);
+  const [inputValue, setInputValue] = useState(0);
+  const [priceToDisplay, setPriceToDisplay] = useState(null);
+  const [ConvertedPriceToDisplay, setConvertedPriceToDisplay] = useState(null);
+  const [filter, setFilter] = useState("");
 
   const getData = async () => {
     try {
@@ -128,43 +130,49 @@ function App() {
   );
 
   return (
-    <body className="bg-bgc ">
+    <div className="bg-bgc flex flex-col items-center">
       <Heading lastUpdated={data.length > 0 ? data[0].date : null} />
-      <Selector
-        handleCountryChange={handleCountryChange}
-        handleFuelChange={handleFuelChange}
-        countryOptions={countryOptions}
-        fuelOptions={fuelOptions}
-        data={data}
-      />
-
-      <Input
-        handleInputChange={handleInputChange}
-        inputValue={inputValue}
-        handleCurrencyChange={handleCurrencyChange}
-        currnecyOptions={currencyOptions}
-        currencydata={currencydata}
-      />
-      <Price
-        priceToDisplay={priceToDisplay}
-        selectedCurrency={selectedCurrency}
-        ConvertedPriceToDisplay={ConvertedPriceToDisplay}
-      />
-
-      <Buttonrow
-        handleGetPrice={handleGetPrice}
-        handleGetConvertedPrice={handleGetConvertedPrice}
-      />
+      <div className="flex flex-col md:flex-row justify-center mt-[2.5em] gap-6 md:gap-[3em]">
+        <div className="flex flex-col justify-center items-center gap-[2em] bg-gray-900 px-4 md:px-[2em] py-4 md:py-[1em] ml-[1.5em] rounded-2xl w-full md:w-auto">
+          <Selector
+            handleCountryChange={handleCountryChange}
+            handleFuelChange={handleFuelChange}
+            countryOptions={countryOptions}
+            fuelOptions={fuelOptions}
+            data={data}
+          />
+          <Input
+            handleInputChange={handleInputChange}
+            inputValue={inputValue}
+            handleCurrencyChange={handleCurrencyChange}
+            currnecyOptions={currencyOptions}
+            currencydata={currencydata}
+          />
+          <Singleprice priceToDisplay={priceToDisplay} />
+          <Buttonrow
+            handleGetPrice={handleGetPrice}
+            handleGetConvertedPrice={handleGetConvertedPrice}
+          />
+        </div>
+        <div className="flex justify-center w-full md:w-[25em]">
+          <div className="flex flex-col bg-gray-900 justify-center gap-6 items-center px-4 md:px-[1em] py-4 md:py-[1em] ml-[1.5em] rounded-2xl w-full">
+            <Price
+              priceToDisplay={priceToDisplay}
+              selectedCurrency={selectedCurrency}
+              ConvertedPriceToDisplay={ConvertedPriceToDisplay}
+            />
+            <Convert handleGetConvertedPrice={handleGetConvertedPrice} />
+          </div>
+        </div>
+      </div>
 
       <Filter setFilter={setFilter} filter={filter} />
       <Table filteredCountries={filteredCountries} />
-
-      <div className="justify-center flex">
-        <div className="flex flex-col relative w-[40em] bg-white h-[0.2px] mt-[-0.5em]"></div>
+      <div className="flex justify-center w-full">
+        <div className="border-b-[0.1px] border-white w-full mt-[-2em] md:max-w-[40em]"></div>
       </div>
-
       <Footer />
-    </body>
+    </div>
   );
 }
 

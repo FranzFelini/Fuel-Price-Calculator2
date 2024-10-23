@@ -48,3 +48,33 @@ html {
 thead {
   position: sticky;
 }
+
+@media (max-width: 768px) {
+  .flex-row {
+    flex-direction: column;
+    padding: 2em;
+    align-items: center;
+    gap: 1.5em;
+  }
+
+  .flex-col {
+    padding: 1em;
+    margin-top: 1.5em;
+    gap: 1em;
+  }
+
+  .bg-gray-900 {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .justify-center {
+    flex-direction: column;
+  }
+
+  @media (max-width: 768px) {
+    #line {
+      height: 0.2px;
+    }
+  }
+}
