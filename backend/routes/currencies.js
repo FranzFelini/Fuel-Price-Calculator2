@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Fuel = require("../models/country");
+const Fuel = require("../models/currency");
+const Currency = require("../models/currency");
 
 router.get("/", async (req, res) => {
   try {
-    const countries = await Fuel.find();
-    res.json(countries);
+    const currencies = await Currency.find();
+    res.json(currencies);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
