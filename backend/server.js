@@ -4,8 +4,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Fuel = require("./models/country");
 const { updateFuelPrices } = require("./Scrapers/scraper");
+const { updateCurrencyRates } = require("./Scrapers/CurrencyScraper");
 const cron = require("node-cron");
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -30,8 +30,10 @@ app.use("/currencies", currencyRouter);
 
 cron.schedule("0 0 * * *", async () => {
   try {
+    await updateCurrencyRates();
+    console.log("Updated currencies");
     await updateFuelPrices();
-    console.log("Updated");
+    console.log("Updated prices");
   } catch (err) {
     console.error(err);
   }

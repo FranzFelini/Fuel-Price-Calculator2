@@ -44,17 +44,16 @@ const scrapeCurrencyRates = async (url) => {
   return ratedata;
 };
 
-(async () => {
-  try {
-    const data = await scrapeCurrencyRates(url);
+const updateCurrencyRates = async () => {
+  const currencies = await scrapeCurrencyRates(url);
+  await Currency.deleteMany({});
 
-    if (data.length > 0) {
-      await Currency.insertMany(data);
-      console.log("Inserted:", data);
-    } else {
-      console.log("No data to insert.");
-    }
-  } catch (err) {
-    console.error(err);
+  if (currencies.length > 0) {
+    await Currency.insertMany(currencies);
+    console.log(`Updated currency rates`);
+  } else {
+    console.log(`No data to update`);
   }
-})();
+};
+
+module.exports = { scrapeCurrencyRates, updateCurrencyRates };
