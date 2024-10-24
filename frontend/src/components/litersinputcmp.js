@@ -56,6 +56,10 @@ const Input = ({
                 color: isFocused ? "white" : "black",
                 backgroundColor: isFocused ? "rgb(167, 139, 250)" : "white",
               }),
+              input: (provided) => ({
+                ...provided,
+                color: "white",
+              }),
             }}
           />
         ) : (
