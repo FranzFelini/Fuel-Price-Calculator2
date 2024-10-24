@@ -4,6 +4,7 @@ import "./App.css";
 import Buttonrow from "./components/buttonrowcmp";
 import Convert from "./components/convertcmp";
 import Table from "./components/countrytablecmp";
+import Disclaimer from "./components/disclaimercmp";
 import Footer from "./components/footercmp";
 import Heading from "./components/headingcmp";
 import Input from "./components/litersinputcmp";
@@ -153,7 +154,9 @@ function App() {
             handleGetPrice={handleGetPrice}
             handleGetConvertedPrice={handleGetConvertedPrice}
           />
+          <Disclaimer />
         </div>
+
         <div className="flex justify-center w-full md:w-[25em]">
           <div className="flex flex-col bg-gray-900 justify-center gap-6 items-center px-4 md:px-[1em] py-4 md:py-[1em] ml-[1.5em] rounded-2xl w-full">
             <Price
