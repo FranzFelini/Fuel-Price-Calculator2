@@ -78,3 +78,7 @@ thead {
     }
   }
 }
+.footer {
+  margin-top: auto;
+  bottom: 0;
+}

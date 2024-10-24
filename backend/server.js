@@ -31,9 +31,9 @@ app.use("/currencies", currencyRouter);
 cron.schedule("0 0 * * *", async () => {
   try {
     await updateCurrencyRates();
-    console.log("Updated currencies");
+    console.log("Updated");
     await updateFuelPrices();
-    console.log("Updated prices");
+    console.log("Updated");
   } catch (err) {
     console.error(err);
   }

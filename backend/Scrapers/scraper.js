@@ -15,7 +15,6 @@ const scrapeFuelPrices = async (url) => {
   let data = [];
 
   try {
-    console.log(`Navigating to ${url}`);
     await page.goto(url, { waitUntil: "networkidle2" });
 
     data = await page.evaluate(() => {

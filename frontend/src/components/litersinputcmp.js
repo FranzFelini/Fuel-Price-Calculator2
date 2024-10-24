@@ -63,7 +63,7 @@ const Input = ({
             }}
           />
         ) : (
-          <div>Loading...</div>
+          <div className="text-white font-thin">Loading...</div>
         )}
       </div>
     </div>

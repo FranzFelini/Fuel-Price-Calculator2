@@ -55,7 +55,7 @@ const Selector = ({
               }}
             />
           ) : (
-            <div>Loading...</div>
+            <div className="text-white font-thin">Loading...</div>
           )}
         </div>
         <div className="flex items-center align-center justify-center">

@@ -1,7 +1,7 @@
 const Table = ({ filteredCountries }) => {
   return (
     <div
-      className="overflow-y-auto justify-center flex my-[3em] px-[3em]"
+      className="overflow-y-auto justify-center flex my-[3em] px-[3em] sm:mr-[3em] sm:ml-[4em]"
       style={{ maxHeight: "630px", width: "100%" }}
     >
       <table className=" border-[0.2px] h-[2em] w-full border-white rounded-xl">

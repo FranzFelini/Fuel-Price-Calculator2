@@ -5,6 +5,7 @@ import Buttonrow from "./components/buttonrowcmp";
 import Convert from "./components/convertcmp";
 import Table from "./components/countrytablecmp";
 import Disclaimer from "./components/disclaimercmp";
+import Disclaimer2 from "./components/disclaimercmp2";
 import Footer from "./components/footercmp";
 import Heading from "./components/headingcmp";
 import Input from "./components/litersinputcmp";
@@ -131,51 +132,59 @@ function App() {
   );
 
   return (
-    <div className="bg-bgc flex flex-col items-center">
-      <Heading lastUpdated={data.length > 0 ? data[0].date : null} />
-      <div className="flex flex-col md:flex-row justify-center mt-[2.5em] gap-6 md:gap-[3em]">
-        <div className="flex flex-col justify-center items-center gap-[2em] bg-gray-900 px-4 md:px-[2em] py-4 md:py-[1em] ml-[1.5em] rounded-2xl w-full md:w-auto">
-          <Selector
-            handleCountryChange={handleCountryChange}
-            handleFuelChange={handleFuelChange}
-            countryOptions={countryOptions}
-            fuelOptions={fuelOptions}
-            data={data}
-          />
-          <Input
-            handleInputChange={handleInputChange}
-            inputValue={inputValue}
-            handleCurrencyChange={handleCurrencyChange}
-            currnecyOptions={currencyOptions}
-            currencydata={currencydata}
-          />
-          <Singleprice priceToDisplay={priceToDisplay} />
-          <Buttonrow
-            handleGetPrice={handleGetPrice}
-            handleGetConvertedPrice={handleGetConvertedPrice}
-          />
-          <Disclaimer />
+    <>
+      <div className="bg-bgc flex flex-col items-center">
+        <Heading lastUpdated={data.length > 0 ? data[0].date : null} />
+        <div className="flex justify-center">
+          <div className=" border-b-[0.1px] border-white w-[20em] mt-[-0em] md:max-w-[40em] md:hidden inline"></div>
         </div>
-
-        <div className="flex justify-center w-full md:w-[25em]">
-          <div className="flex flex-col bg-gray-900 justify-center gap-6 items-center px-4 md:px-[1em] py-4 md:py-[1em] ml-[1.5em] rounded-2xl w-full">
-            <Price
-              priceToDisplay={priceToDisplay}
-              selectedCurrency={selectedCurrency}
-              ConvertedPriceToDisplay={ConvertedPriceToDisplay}
+        <div className="flex flex-col md:flex-row justify-center mt-[2.5em] gap-6 md:gap-[3em]">
+          <div className="flex flex-col justify-center items-center gap-[2em] bg-gray-900 px-4 md:px-[2em] py-4 md:py-[1em] ml-[1.5em] rounded-2xl w-full md:w-auto">
+            <Selector
+              handleCountryChange={handleCountryChange}
+              handleFuelChange={handleFuelChange}
+              countryOptions={countryOptions}
+              fuelOptions={fuelOptions}
+              data={data}
             />
-            <Convert handleGetConvertedPrice={handleGetConvertedPrice} />
+            <Input
+              handleInputChange={handleInputChange}
+              inputValue={inputValue}
+              handleCurrencyChange={handleCurrencyChange}
+              currnecyOptions={currencyOptions}
+              currencydata={currencydata}
+            />
+            <Singleprice priceToDisplay={priceToDisplay} />
+            <Buttonrow
+              handleGetPrice={handleGetPrice}
+              handleGetConvertedPrice={handleGetConvertedPrice}
+            />
+            <Disclaimer />
+          </div>
+
+          <div className="flex justify-center w-full md:w-[25em]">
+            <div className="flex flex-col bg-gray-900 justify-center gap-6 items-center px-4 md:px-[1em] py-4 md:py-[1em] ml-[1.5em] rounded-2xl w-full">
+              <Price
+                priceToDisplay={priceToDisplay}
+                selectedCurrency={selectedCurrency}
+                ConvertedPriceToDisplay={ConvertedPriceToDisplay}
+              />
+              <Convert handleGetConvertedPrice={handleGetConvertedPrice} />
+              <Disclaimer2 />
+            </div>
           </div>
         </div>
-      </div>
 
-      <Filter setFilter={setFilter} filter={filter} />
-      <Table filteredCountries={filteredCountries} />
-      <div className="flex justify-center w-full">
-        <div className="border-b-[0.1px] border-white w-full mt-[-2em] md:max-w-[40em]"></div>
+        <Filter setFilter={setFilter} filter={filter} />
+        <Table filteredCountries={filteredCountries} />
+        <div className="flex justify-center w-full">
+          <div className="border-b-[0.1px] border-white w-full mt-[-2em] md:max-w-[85em]"></div>
+        </div>
       </div>
-      <Footer />
-    </div>
+      <div className="bottom-o md:bottom-0">
+        <Footer />
+      </div>
+    </>
   );
 }
 

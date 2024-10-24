@@ -32,11 +32,11 @@ const scrapeCurrencyRates = async (url) => {
           }
         }
       });
-      console.log("Scraped data:", data);
+      console.log(data);
       return data;
     });
-  } catch (error) {
-    console.error("Error while navigating:", error);
+  } catch (err) {
+    console.error(err);
   } finally {
     await browser.close();
   }
