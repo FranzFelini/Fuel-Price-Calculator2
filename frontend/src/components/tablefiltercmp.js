@@ -1,6 +1,6 @@
 const Filter = ({ setFilter, filter }) => {
   return (
-    <div className="flex justify-center md:justify-end mt-[7em] mb-[-2em] w-full md:mr-[6em]">
+    <div className="flex justify-center md:justify-end mt-[7em] mb-[-2em] w-full md:mr-[11.5em]">
       <input
         type="text"
         placeholder="Search by name"

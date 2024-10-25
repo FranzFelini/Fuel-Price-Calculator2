@@ -5,10 +5,10 @@ const Heading = ({ lastUpdated }) => {
 
   return (
     <div>
-      <div className="flex flex-col mt-[-5em] md:mt-14 justify-end gap-8">
-        <div className="flex items-center flex-col md:flex-row gap-4 md:gap-8 text-center justify-center">
+      <div className="flex flex-col mt-[-5em] md:mt-14 justify-end gap-8 ">
+        <div className="flex items-center flex-col md:flex-row gap-4 md:gap-8 text-center justify-center ">
           <h1 className="flex md:flex-row flex-col bg-inherit text-white tracking-normal text-4xl md:text-5xl pt-4 pb-2 font-thin">
-            <strong className="md:mb-[0em] mb-[-0.9em]">FUEL&nbsp;</strong>
+            <strong className="md:mb-[0em] mb-[-0.9em]">FUEL&nbsp;</strong>{" "}
             PRICE CALCULATOR
           </h1>
           <img

@@ -28,7 +28,7 @@ app.use("/countries", countriesRouter);
 const currencyRouter = require("./routes/currencies");
 app.use("/currencies", currencyRouter);
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("0 0 * * *", async () => {
   try {
     await updateCurrencyRates();
     console.log("Updated");

@@ -1,6 +1,7 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
+import About from "./aboutcmp";
 import Buttonrow from "./components/buttonrowcmp";
 import Convert from "./components/convertcmp";
 import Table from "./components/countrytablecmp";
@@ -176,10 +177,16 @@ function App() {
         </div>
 
         <Filter setFilter={setFilter} filter={filter} />
-        <Table filteredCountries={filteredCountries} />
+        <Table
+          className="flex justify-center"
+          filteredCountries={filteredCountries}
+        />
         <div className="flex justify-center w-full">
-          <div className="border-b-[0.1px] border-white w-full mt-[-2em] md:max-w-[85em]"></div>
+          <div className="border-b-[0.1px] border-white w-full mt-[-1em] mb-[4em] md:max-w-[80em]"></div>
         </div>
+      </div>
+      <div className="flex items-center justify-center ">
+        <About />
       </div>
       <div className="bottom-o md:bottom-0">
         <Footer />
