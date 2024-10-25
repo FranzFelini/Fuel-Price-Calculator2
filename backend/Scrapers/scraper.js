@@ -14,25 +14,24 @@ const scrapeFuelPrices = async (url) => {
   let data = [];
 
   try {
-    console.log(`Navigating to ${url}...`);
     await page.goto(url, { waitUntil: "networkidle2" });
 
     data = await page.evaluate(() => {
       const rows = document.querySelectorAll("#graphic div div div");
       const prices = [];
 
-      rows.forEach((row) => {
+      rows.forEach((row, index) => {
         const priceText = row.textContent.trim();
         const price = parseFloat(priceText.replace(/[^\d.-]/g, ""));
         if (!isNaN(price)) {
-          prices.push(price); // Store raw price to format later
+          prices.push(price);
         }
       });
 
       return prices;
     });
   } catch (err) {
-    console.error("Error during scraping:", err);
+    console.error("Error white scraping", err);
   } finally {
     await browser.close();
   }
@@ -47,7 +46,6 @@ const scrapeCountryNames = async (url) => {
   let countryData = [];
 
   try {
-    console.log(`Navigating to ${url}...`);
     await page.goto(url, { waitUntil: "networkidle2" });
 
     countryData = await page.evaluate(() => {
@@ -62,7 +60,7 @@ const scrapeCountryNames = async (url) => {
       return countries;
     });
   } catch (err) {
-    console.error("Error scraping country names:", err);
+    console.error("Error while scraping names:", err);
   } finally {
     await browser.close();
   }
@@ -84,14 +82,8 @@ const updateFuelPrices = async () => {
 
     const allData = gasolineCountries.map((country, index) => ({
       name: country,
-      gasoline_price:
-        gasolinePrices[index] !== undefined
-          ? gasolinePrices[index].toFixed(2)
-          : null,
-      diesel_price:
-        dieselPriceMap[country] !== null
-          ? dieselPriceMap[country].toFixed(2)
-          : null,
+      gasoline_price: gasolinePrices[index] || null,
+      diesel_price: dieselPriceMap[country] || null,
       date: new Date(),
     }));
 
@@ -103,12 +95,12 @@ const updateFuelPrices = async () => {
 
     if (validData.length > 0) {
       await Fuel.insertMany(validData);
-      console.log(`Updated fuel prices: ${validData.length} records inserted`);
+      console.log(`Updated: ${validData.length} records`);
     } else {
-      console.log(`No valid data to update`);
+      console.log(`No data to update`);
     }
   } catch (err) {
-    console.error("Error updating fuel prices:", err);
+    console.error(err);
   }
 };
 
