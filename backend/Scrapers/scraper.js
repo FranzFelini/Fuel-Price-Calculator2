@@ -21,11 +21,11 @@ const scrapeFuelPrices = async (url) => {
       const rows = document.querySelectorAll("#graphic div div div");
       const prices = [];
 
-      rows.forEach((row, index) => {
+      rows.forEach((row) => {
         const priceText = row.textContent.trim();
         const price = parseFloat(priceText.replace(/[^\d.-]/g, ""));
         if (!isNaN(price)) {
-          prices.push(price);
+          prices.push(price); // Store raw price to format later
         }
       });
 
@@ -84,8 +84,14 @@ const updateFuelPrices = async () => {
 
     const allData = gasolineCountries.map((country, index) => ({
       name: country,
-      gasoline_price: gasolinePrices[index] || null,
-      diesel_price: dieselPriceMap[country] || null,
+      gasoline_price:
+        gasolinePrices[index] !== undefined
+          ? gasolinePrices[index].toFixed(2)
+          : null,
+      diesel_price:
+        dieselPriceMap[country] !== null
+          ? dieselPriceMap[country].toFixed(2)
+          : null,
       date: new Date(),
     }));
 
