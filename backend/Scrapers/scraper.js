@@ -3,9 +3,8 @@ const puppeteer = require("puppeteer");
 const Fuel = require("../models/country");
 
 const urls = {
-  europe: "https://www.tolls.eu/fuel-prices",
-  asia: "https://www.tolls.eu/fuel-prices-asia",
-  america: "https://www.tolls.eu/fuel-prices-america",
+  gasoline: "https://www.globalpetrolprices.com/gasoline_prices/",
+  diesel: "https://www.globalpetrolprices.com/diesel_prices/",
 };
 
 const scrapeFuelPrices = async (url) => {
@@ -15,40 +14,25 @@ const scrapeFuelPrices = async (url) => {
   let data = [];
 
   try {
+    console.log(`Navigating to ${url}...`);
     await page.goto(url, { waitUntil: "networkidle2" });
 
     data = await page.evaluate(() => {
-      const rows = document.querySelectorAll(".tr");
-      const regionData = [];
+      const rows = document.querySelectorAll("#graphic div div div");
+      const prices = [];
 
-      rows.forEach((row) => {
-        const countryDiv = row.querySelector(".th");
-        const priceDivs = row.querySelectorAll(".td");
-
-        if (countryDiv && priceDivs.length >= 2) {
-          const country = countryDiv.innerText.trim();
-          const gasoline_price_str =
-            priceDivs[0]?.childNodes[0]?.textContent.trim() || "N/A";
-          const diesel_price_str =
-            priceDivs[1]?.childNodes[0]?.textContent.trim() || "N/A";
-
-          const gasoline_price = parseFloat(
-            gasoline_price_str.replace(/[^\d.-]/g, "")
-          );
-          const diesel_price = parseFloat(
-            diesel_price_str.replace(/[^\d.-]/g, "")
-          );
-
-          if (!isNaN(gasoline_price) && !isNaN(diesel_price)) {
-            regionData.push({ name: country, gasoline_price, diesel_price });
-          }
+      rows.forEach((row, index) => {
+        const priceText = row.textContent.trim();
+        const price = parseFloat(priceText.replace(/[^\d.-]/g, ""));
+        if (!isNaN(price)) {
+          prices.push(price);
         }
       });
-      console.log("Scraped data:", regionData);
-      return regionData;
+
+      return prices;
     });
   } catch (err) {
-    console.error(err);
+    console.error("Error during scraping:", err);
   } finally {
     await browser.close();
   }
@@ -56,22 +40,70 @@ const scrapeFuelPrices = async (url) => {
   return data;
 };
 
-const updateFuelPrices = async () => {
-  const allData = [];
+const scrapeCountryNames = async (url) => {
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
 
-  for (const region in urls) {
-    const data = await scrapeFuelPrices(urls[region]);
-    allData.push(...data);
+  let countryData = [];
+
+  try {
+    console.log(`Navigating to ${url}...`);
+    await page.goto(url, { waitUntil: "networkidle2" });
+
+    countryData = await page.evaluate(() => {
+      const countries = [];
+      const outsideLinksElement = document.querySelector("#outsideLinks");
+      const countryLinks = outsideLinksElement.querySelectorAll(
+        "a.graph_outside_link"
+      );
+      countryLinks.forEach((link) => {
+        countries.push(link.textContent.trim());
+      });
+      return countries;
+    });
+  } catch (err) {
+    console.error("Error scraping country names:", err);
+  } finally {
+    await browser.close();
   }
 
-  await Fuel.deleteMany({});
+  return countryData;
+};
 
-  if (allData.length > 0) {
-    await Fuel.insertMany(allData);
-    console.log(`Updated fuel prices`);
-  } else {
-    console.log(`No valid data to update`);
+const updateFuelPrices = async () => {
+  try {
+    const gasolineCountries = await scrapeCountryNames(urls.gasoline);
+    const gasolinePrices = await scrapeFuelPrices(urls.gasoline);
+    const dieselCountries = await scrapeCountryNames(urls.diesel);
+    const dieselPrices = await scrapeFuelPrices(urls.diesel);
+
+    const dieselPriceMap = {};
+    dieselCountries.forEach((country, index) => {
+      dieselPriceMap[country] = dieselPrices[index] || null;
+    });
+
+    const allData = gasolineCountries.map((country, index) => ({
+      name: country,
+      gasoline_price: gasolinePrices[index] || null,
+      diesel_price: dieselPriceMap[country] || null,
+      date: new Date(),
+    }));
+
+    const validData = allData.filter(
+      (entry) => entry.gasoline_price !== null && entry.diesel_price !== null
+    );
+
+    await Fuel.deleteMany({});
+
+    if (validData.length > 0) {
+      await Fuel.insertMany(validData);
+      console.log(`Updated fuel prices: ${validData.length} records inserted`);
+    } else {
+      console.log(`No valid data to update`);
+    }
+  } catch (err) {
+    console.error("Error updating fuel prices:", err);
   }
 };
 
-module.exports = { scrapeFuelPrices, updateFuelPrices };
+module.exports = { updateFuelPrices };
