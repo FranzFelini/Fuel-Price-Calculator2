@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 
 app.use(
   cors({
-    origin: "fuelpricecalculator2-g4w8xz4xv-franzfelinis-projects.vercel.app",
+    origin: "*",
   })
 );
 
