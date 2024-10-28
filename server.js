@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "fuelpricecalculator.vercel.app",
+    origin: "fuelpricecalculator2-g4w8xz4xv-franzfelinis-projects.vercel.app",
   })
 );
 
