@@ -31,7 +31,7 @@ function App() {
   const getData = async () => {
     try {
       console.log("API_URL", NEXT_PUBLIC_API_URL);
-      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}/countries`);
+      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}countries`);
       setData(response.data);
       console.log("Fetched countries:", response.data);
     } catch (error) {
@@ -41,7 +41,7 @@ function App() {
 
   const getCurrnecyData = async () => {
     try {
-      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}/currencies`);
+      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}currencies`);
       setCurrencyData(response.data);
       console.log("Fetched currencies:", response.data);
     } catch (error) {
