@@ -10,6 +10,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(
+  cors({
+    origin:
+      "https://fuelpricecalculator2-jt8phrkp9-franzfelinis-projects.vercel.app",
+  })
+);
+
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.DATABASE_URL);
