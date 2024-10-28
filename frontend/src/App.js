@@ -26,7 +26,7 @@ function App() {
   const [ConvertedPriceToDisplay, setConvertedPriceToDisplay] = useState(null);
   const [filter, setFilter] = useState("");
 
-  const NEXT_PUBLIC_API_URL = process.env.API_URL;
+  const NEXT_PUBLIC_API_URL = process.env.REACT_APP_API_URL;
 
   const getData = async () => {
     try {
