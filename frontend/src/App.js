@@ -30,7 +30,9 @@ function App() {
 
   const getData = async () => {
     try {
+      console.log("NEXT_PUBLIC_API_URL", NEXT_PUBLIC_API_URL);
       const response = await Axios.get(`${NEXT_PUBLIC_API_URL}/countries`);
+
       setData(response.data);
       console.log("Fetched countries:", response.data);
     } catch (error) {
