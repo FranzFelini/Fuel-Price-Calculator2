@@ -28,7 +28,9 @@ function App() {
 
   const getData = async () => {
     try {
-      const response = await Axios.get("http://localhost:3001/countries");
+      const response = await Axios.get(
+        "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/countries"
+      );
       setData(response.data);
       console.log("Fetched countries:", response.data);
     } catch (error) {
@@ -38,7 +40,9 @@ function App() {
 
   const getCurrnecyData = async () => {
     try {
-      const response = await Axios.get("http://localhost:3001/currencies");
+      const response = await Axios.get(
+        "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/currencies"
+      );
       setCurrencyData(response.data);
       console.log("Fetched currencies:", response.data);
     } catch (error) {
