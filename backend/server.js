@@ -7,7 +7,14 @@ const { updateFuelPrices } = require("./Scrapers/scraper");
 const { updateCurrencyRates } = require("./Scrapers/CurrencyScraper");
 const cron = require("node-cron");
 const app = express();
-app.use(cors());
+
+app.use(
+  cors({
+    origin:
+      "https://fuelpricecalculator2-jt8phrkp9-franzfelinis-projects.vercel.app",
+  })
+);
+
 app.use(express.json());
 
 const connectDB = async () => {
@@ -31,12 +38,13 @@ app.use("/currencies", currencyRouter);
 cron.schedule("0 0 * * *", async () => {
   try {
     await updateCurrencyRates();
-    console.log("Updated");
+    console.log("Updated Currency Rates");
     await updateFuelPrices();
-    console.log("Updated");
+    console.log("Updated Fuel Prices");
   } catch (err) {
     console.error(err);
   }
 });
 
-app.listen(3001, () => console.log("Server started"));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
