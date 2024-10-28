@@ -8,6 +8,10 @@ const { updateCurrencyRates } = require("./Scrapers/CurrencyScraper");
 const cron = require("node-cron");
 const app = express();
 
+app.get("/", (req, res) => {
+  return res.send("running");
+});
+
 app.use(
   cors({
     origin: "fuelpricecalculator2-g4w8xz4xv-franzfelinis-projects.vercel.app",
