@@ -26,11 +26,11 @@ function App() {
   const [ConvertedPriceToDisplay, setConvertedPriceToDisplay] = useState(null);
   const [filter, setFilter] = useState("");
 
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const getData = async () => {
     try {
-      const response = await Axios.get(`${API_BASE_URL}/countries`);
+      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}/countries`);
       setData(response.data);
       console.log("Fetched countries:", response.data);
     } catch (error) {
@@ -40,7 +40,7 @@ function App() {
 
   const getCurrnecyData = async () => {
     try {
-      const response = await Axios.get(`${API_BASE_URL}/currencies`);
+      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}/currencies`);
       setCurrencyData(response.data);
       console.log("Fetched currencies:", response.data);
     } catch (error) {
