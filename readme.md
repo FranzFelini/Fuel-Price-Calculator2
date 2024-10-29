@@ -57,19 +57,23 @@ cd FuelPriceCalculatorDEMO
 ```bash
 npm install
 ```
-#### Step 1 : Run backend server (npm run devStart || nmp run dev)
+#### step 3 : Navigate to app directory and install neccessary dependencies (npm install)
 ```bash
 npm run devStart
 ```
-#### Step 1 : Navigate to frontend directory and install dependencies for frontend (npm install)
+#### Step 4 : Run backend server (npm run devStart || nmp run dev)
+```bash
+npm run devStart
+```
+#### Step 5 : Navigate to frontend directory and install dependencies for frontend (npm install)
 ```bash
 npm install
 ```
-#### Step 1 : Start the frontend app (npm start)
+#### Step 6 : Start the frontend app (npm start)
 ```bash
 npm start
 ```
-### 4) Diagram
+### 4) Architecture diagram
 [App arhitecture diagram ](images/diagram.png)
 
 
