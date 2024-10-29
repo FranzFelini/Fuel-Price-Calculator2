@@ -33,8 +33,8 @@ Node Package Menager
 
  Express.js  <br>
  Puppeteer - Used as scraper <br>
- Nodemon - For automatic restarting and refreshing
- Dotenv - To manage ENV veriables inside the project
+ Nodemon - For automatic restarting and refreshing <br>
+ Dotenv - To manage ENV veriables inside the project <br>
  Mongoose - Database manipulating <br>
  
 ###### Frontend requirements :
