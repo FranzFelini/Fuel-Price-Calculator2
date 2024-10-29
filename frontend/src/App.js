@@ -35,7 +35,7 @@ function App() {
       setData(response.data);
       console.log("Fetched countries:", response.data);
     } catch (error) {
-      console.error("Error fetching countries:", error);
+      console.error(error);
     }
   };
 
@@ -45,7 +45,7 @@ function App() {
       setCurrencyData(response.data);
       console.log("Fetched currencies:", response.data);
     } catch (error) {
-      console.error("Error fetching currencies:", error);
+      console.error(error);
     }
   };
 

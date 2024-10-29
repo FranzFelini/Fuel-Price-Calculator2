@@ -7,10 +7,10 @@ const About = () => {
         </h1>
 
         <p className="md:w-[40em] w-[17em] text-white font-thin text-justify md:mt-[0em] mt-[1em]">
-          The Fuel Price Calculator is an app that enables users to search and
-          calculate their fuel consumption based on the country where they buy
-          the fuel and based on liters that they put it. The app itself is
-          updated regularly so you don't need to worry about false data.
+          The Fuel Price Calculator is an app that allows users to search for
+          and calculate their fuel consumption based on the country where they
+          purchase fuel and the number of liters they use. The app is updated
+          regularly, so you don't need to worry about inaccurate data.
         </p>
 
         <div className="flex flex-row gap-[2em] justify-center">
