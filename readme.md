@@ -57,7 +57,7 @@ cd FuelPriceCalculatorDEMO
 ```bash
 npm install
 ```
-#### step 3 : Navigate to app directory and install neccessary dependencies (npm install)
+#### Step 3 : Navigate to app directory and install neccessary dependencies (npm install)
 ```bash
 npm run devStart
 ```
