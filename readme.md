@@ -37,7 +37,7 @@ Node Package Menager
  Dotenv - To manage ENV veriables inside the project <br>
  Mongoose - Database manipulating <br>
 
-###### optional :
+###### optional // for testing purposes :
 REST CLIENT Visual Studio Code extension - To send requests locally from Visual Studio Code <br>
  
 ###### Frontend requirements :
