@@ -36,10 +36,14 @@ Node Package Menager
  Nodemon - For automatic restarting and refreshing <br>
  Dotenv - To manage ENV veriables inside the project <br>
  Mongoose - Database manipulating <br>
+
+###### optional :
+REST CLIENT Visual Studio Code extension - To send requests locally from Visual Studio Code <br>
  
 ###### Frontend requirements :
 
 React.js <br>
+Tailwind - for styling <br>
 React-select <br>
 Axios - for managing HTTP requests 
 
