@@ -59,7 +59,7 @@ npm install
 ```
 #### Step 3 : Navigate to app directory and install neccessary dependencies (npm install)
 ```bash
-npm run devStart
+npm install
 ```
 #### Step 4 : Run backend server (npm run devStart || nmp run dev)
 ```bash
