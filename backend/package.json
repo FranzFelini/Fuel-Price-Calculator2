@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm install && node server.js",
     "devStart": "nodemon server.js",
-    "heroku-postbuild": "npm install"
+    "heroku-postbuild": "npm install && mkdir  ./.cache && mv /app/.cache/puppeteer ./.cache"
   },
   "author": "",
   "license": "ISC",
