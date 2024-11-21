@@ -13,18 +13,17 @@ import Heading from "./components/Header_cmp";
 import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
-import Filter from "./components/Table_filter_cmp";
 
 function App() {
   const [data, setData] = useState([]);
   const [currencydata, setCurrencyData] = useState([]);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedFuel, setSelectedFuel] = useState(null);
-  const [inputValue, setInputValue] = useState(0);
+  const [selectedFuelType, setSelectedFuelType] = useState(null);
+  const [InputValue, setInputValue] = useState(0);
   const [priceToDisplay, setPriceToDisplay] = useState(null);
   const [ConvertedPriceToDisplay, setConvertedPriceToDisplay] = useState(null);
-  const [filter, setFilter] = useState("");
+  const [Filter, setFilter] = useState("");
 
   const NEXT_PUBLIC_API_URL = process.env.REACT_APP_API_URL;
 
@@ -55,7 +54,7 @@ function App() {
   }, []);
 
   const handleFuelChange = (selectedOption) => {
-    setSelectedFuel(selectedOption);
+    setSelectedFuelType(selectedOption);
   };
 
   const handleCurrencyChange = (selectedOption) => {
@@ -67,7 +66,7 @@ function App() {
   };
 
   const handleGetPrice = () => {
-    const price = calculatePrice(inputValue);
+    const price = calculatePrice(InputValue);
     setPriceToDisplay(price);
   };
 
@@ -81,15 +80,15 @@ function App() {
   };
 
   const handleGetConvertedPrice = () => {
-    const price = calculatePrice(inputValue);
+    const price = calculatePrice(InputValue);
     const convertedPrice = calculateConvertedPrice(price);
     setConvertedPriceToDisplay(convertedPrice);
   };
 
   const calculatePrice = (liters) => {
-    if (selectedCountry && selectedFuel) {
+    if (selectedCountry && selectedFuelType) {
       const pricePerLiter =
-        selectedFuel.value === "diesel_price"
+        selectedFuelType.value === "diesel_price"
           ? parseFloat(selectedCountry.diesel_price)
           : parseFloat(selectedCountry.gasoline_price);
 
@@ -111,7 +110,7 @@ function App() {
   };
 
   const filteredCountries = data.filter((country) =>
-    country.name.toLowerCase().includes(filter.toLowerCase())
+    country.name.toLowerCase().includes(Filter.toLowerCase())
   );
 
   const countryOptions = data.map((country) => ({
@@ -150,7 +149,7 @@ function App() {
             />
             <Input
               handleInputChange={handleInputChange}
-              inputValue={inputValue}
+              inputValue={InputValue}
               handleCurrencyChange={handleCurrencyChange}
               currnecyOptions={currencyOptions}
               currencydata={currencydata}
@@ -176,7 +175,7 @@ function App() {
           </div>
         </div>
 
-        <Filter setFilter={setFilter} filter={filter} />
+        <Filter setFilter={setFilter} Filter={Filter} />
         <Table
           className="flex justify-center"
           filteredCountries={filteredCountries}

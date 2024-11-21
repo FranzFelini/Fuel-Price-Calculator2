@@ -15,8 +15,8 @@ const Input = ({
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          placeholder="Number of liters yes"
-          className="h-[3em] w-[20em] sm:w-[20em] mt-[1em] p-[0.5em] bg-black rounded-md border text-center border-white text-white hover:border-violet-300"
+          placeholder="Number of liters"
+          className="h-[3em] w-[20em] text-white  sm:w-[20em] mt-[1em] p-[0.5em] bg-black rounded-md border text-center border-white hover:border-violet-300"
         />
       </div>
       <div className="flex justify-center items-center w-full sm:w-auto">
