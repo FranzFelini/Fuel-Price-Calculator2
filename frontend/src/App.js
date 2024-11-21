@@ -31,12 +31,14 @@ function App() {
   const getAllData = async () => {
     try {
       console.log("API_URL", NEXT_PUBLIC_API_URL);
-      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}countries`);
-      const response2 = await Axios.get(`${NEXT_PUBLIC_API_URL}currencies`);
-      setData(response.data);
-      setCurrencyData(response2.data);
-      console.log("Fetched countries:", response.data);
-      console.log("Fetched currencies:", response2.data);
+      const countries_response = await Axios.get(
+        `${NEXT_PUBLIC_API_URL}countries`
+      );
+      const currencies_response = await Axios.get(
+        `${NEXT_PUBLIC_API_URL}currencies`
+      );
+      setData(countries_response.data);
+      setCurrencyData(currencies_response.data);
     } catch (error) {
       console.error(error);
     }
