@@ -3,7 +3,7 @@ import Select from "react-select";
 
 const Input = ({
   handleInputChange,
-  inputValue,
+  InputValue,
   handleCurrencyChange,
   currnecyOptions,
   currencydata,
@@ -13,9 +13,9 @@ const Input = ({
       <div className="flex justify-center items-center w-full sm:w-auto mb-[0.5em]">
         <input
           type="text"
-          value={inputValue}
+          defaultValue={"Number of liters"}
+          value={InputValue}
           onChange={handleInputChange}
-          placeholder="Number of liters"
           className="h-[3em] w-[20em] text-white  sm:w-[20em] mt-[1em] p-[0.5em] bg-black rounded-md border text-center border-white hover:border-violet-300"
         />
       </div>
