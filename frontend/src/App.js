@@ -13,6 +13,7 @@ import Heading from "./components/Header_cmp";
 import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
+import Filter from "./components/Table_filter_cmp";
 
 function App() {
   const [data, setData] = useState([]);
@@ -23,34 +24,26 @@ function App() {
   const [InputValue, setInputValue] = useState(0);
   const [priceToDisplay, setPriceToDisplay] = useState(null);
   const [ConvertedPriceToDisplay, setConvertedPriceToDisplay] = useState(null);
-  const [Filter, setFilter] = useState("");
+  const [filter, setFilter] = useState("");
 
   const NEXT_PUBLIC_API_URL = process.env.REACT_APP_API_URL;
 
-  const getCountryData = async () => {
+  const getAllData = async () => {
     try {
       console.log("API_URL", NEXT_PUBLIC_API_URL);
       const response = await Axios.get(`${NEXT_PUBLIC_API_URL}countries`);
+      const response2 = await Axios.get(`${NEXT_PUBLIC_API_URL}currencies`);
       setData(response.data);
+      setCurrencyData(response2.data);
       console.log("Fetched countries:", response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getCurrnecyData = async () => {
-    try {
-      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}currencies`);
-      setCurrencyData(response.data);
-      console.log("Fetched currencies:", response.data);
+      console.log("Fetched currencies:", response2.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getCountryData();
-    getCurrnecyData();
+    getAllData();
   }, []);
 
   const handleFuelChange = (selectedOption) => {
@@ -110,7 +103,7 @@ function App() {
   };
 
   const filteredCountries = data.filter((country) =>
-    country.name.toLowerCase().includes(Filter.toLowerCase())
+    country.name.toLowerCase().includes(filter.toLowerCase())
   );
 
   const countryOptions = data.map((country) => ({
@@ -175,7 +168,7 @@ function App() {
           </div>
         </div>
 
-        <Filter setFilter={setFilter} Filter={Filter} />
+        <Filter setFilter={setFilter} filter={filter} />
         <Table
           className="flex justify-center"
           filteredCountries={filteredCountries}
