@@ -1,6 +1,7 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
 const Currency = require("../models/currency");
+const logger = require("../loggers/logger2.js");
 
 const url = "https://currencyfreaks.com/historical/exchange-rates";
 
@@ -46,6 +47,7 @@ const scrapeCurrencyRates = async (url) => {
 
 const updateCurrencyRates = async () => {
   const currencies = await scrapeCurrencyRates(url);
+  logger.info(`Scraped currency rates from the following source :  ${url}`);
   await Currency.deleteMany({});
 
   if (currencies.length > 0) {

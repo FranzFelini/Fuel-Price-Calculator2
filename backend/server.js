@@ -7,6 +7,8 @@ const { updateFuelPrices } = require("./Scrapers/scraper");
 const { updateCurrencyRates } = require("./Scrapers/CurrencyScraper");
 const cron = require("node-cron");
 const app = express();
+const logger = require("./loggers/logger");
+const morgan = require("morgan");
 
 app.get("/", (req, res) => {
   return res.send("running");
@@ -32,6 +34,24 @@ const connectDB = async () => {
 
 connectDB();
 
+const morganFormat = ":method :url :status :response-time ms";
+
+app.use(
+  morgan(morganFormat, {
+    stream: {
+      write: (message) => {
+        const logObject = {
+          method: message.split(" ")[0],
+          url: message.split(" ")[1],
+          status: message.split(" ")[2],
+          responseTime: message.split(" ")[3],
+        };
+        logger.info(JSON.stringify(logObject));
+      },
+    },
+  })
+);
+
 const countriesRouter = require("./routes/countries");
 app.use("/countries", countriesRouter);
 
@@ -41,11 +61,11 @@ app.use("/currencies", currencyRouter);
 cron.schedule("0 0 * * *", async () => {
   try {
     await updateCurrencyRates();
-    console.log("Updated Currency Rates");
+    logger.info("Updated Currency Rates");
     await updateFuelPrices();
-    console.log("Updated Fuel Prices");
+    logger.info("Updated Fuel Prices");
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 });
 

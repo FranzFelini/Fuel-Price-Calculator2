@@ -1,6 +1,7 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
 const Fuel = require("../models/country");
+const logger = require("../loggers/logger2.js");
 
 const urls = {
   gasoline: "https://www.globalpetrolprices.com/gasoline_prices/",
@@ -31,7 +32,7 @@ const scrapeFuelPrices = async (url) => {
       return prices;
     });
   } catch (err) {
-    console.error("Error white scraping", err);
+    logger.error("Error white scraping", err);
   } finally {
     await browser.close();
   }
@@ -74,6 +75,10 @@ const updateFuelPrices = async () => {
     const gasolinePrices = await scrapeFuelPrices(urls.gasoline);
     const dieselCountries = await scrapeCountryNames(urls.diesel);
     const dieselPrices = await scrapeFuelPrices(urls.diesel);
+
+    logger.info(
+      `Scraped fuel prices from the following sources :  ${urls.gasoline} & ${urls.diesel}`
+    );
 
     const dieselPriceMap = {};
     dieselCountries.forEach((country, index) => {

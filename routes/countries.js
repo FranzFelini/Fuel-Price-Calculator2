@@ -6,6 +6,7 @@ router.get("/", async (req, res) => {
   try {
     const countries = await Fuel.find();
     res.json(countries);
+    console.log("returned");
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
