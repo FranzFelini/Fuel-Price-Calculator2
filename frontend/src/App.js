@@ -22,7 +22,7 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedFuelType, setSelectedFuelType] = useState(null);
   const [InputValue, setInputValue] = useState(0);
-  const [priceToDisplay, setPriceToDisplay] = useState(null);
+  const [PriceToDisplay, setPriceToDisplay] = useState(null);
   const [ConvertedPriceToDisplay, setConvertedPriceToDisplay] = useState(null);
   const [filter, setFilter] = useState("");
 
@@ -34,11 +34,15 @@ function App() {
       const countries_response = await Axios.get(
         `${NEXT_PUBLIC_API_URL}countries`
       );
+
       const currencies_response = await Axios.get(
         `${NEXT_PUBLIC_API_URL}currencies`
       );
+
       setData(countries_response.data);
       setCurrencyData(currencies_response.data);
+      console.log(countries_response.data);
+      console.log(currencies_response.data);
     } catch (error) {
       console.error(error);
     }
@@ -149,7 +153,7 @@ function App() {
               currnecyOptions={currencyOptions}
               currencydata={currencydata}
             />
-            <Singleprice priceToDisplay={priceToDisplay} />
+            <Singleprice priceToDisplay={PriceToDisplay} />
             <Buttonrow
               handleGetPrice={handleGetPrice}
               handleGetConvertedPrice={handleGetConvertedPrice}
@@ -160,7 +164,7 @@ function App() {
           <div className="flex justify-center w-full md:w-[25em]">
             <div className="flex flex-col bg-gray-900 justify-center gap-6 items-center px-4 md:px-[1em] py-4 md:py-[1em] ml-[1.5em] rounded-2xl w-full">
               <Price
-                priceToDisplay={priceToDisplay}
+                priceToDisplay={PriceToDisplay}
                 selectedCurrency={selectedCurrency}
                 ConvertedPriceToDisplay={ConvertedPriceToDisplay}
               />

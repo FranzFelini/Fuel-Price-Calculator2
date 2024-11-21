@@ -10,6 +10,12 @@ const app = express();
 const logger = require("./loggers/logger");
 const morgan = require("morgan");
 
+app.use(
+  cors({
+    origin: "fuelpricecalculator2-g4w8xz4xv-franzfelinis-projects.vercel.app",
+  })
+);
+
 app.get("/", (req, res) => {
   return res.send("running");
 });
