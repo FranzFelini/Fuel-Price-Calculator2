@@ -1,19 +1,19 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
-import About from "./aboutcmp";
-import Buttonrow from "./components/buttonrowcmp";
-import Convert from "./components/convertcmp";
-import Table from "./components/countrytablecmp";
-import Disclaimer from "./components/disclaimercmp";
-import Disclaimer2 from "./components/disclaimercmp2";
-import Footer from "./components/footercmp";
-import Heading from "./components/headingcmp";
-import Input from "./components/litersinputcmp";
-import Selector from "./components/selectorscmp";
-import Singleprice from "./components/singlepricecmp";
-import Filter from "./components/tablefiltercmp";
-import Price from "./components/totalpricecmp";
+import About from "./components/About_cmp";
+import Convert from "./components/Convert_button_cmp";
+import Selector from "./components/Country_currency_selector_cmp";
+import Disclaimer2 from "./components/Disclaimer_2_cmp";
+import Disclaimer from "./components/Disclaimer_cmp";
+import Singleprice from "./components/Display_cmp";
+import Price from "./components/Display_converted_cmp";
+import Footer from "./components/Footer_cmp";
+import Heading from "./components/Header_cmp";
+import Input from "./components/Input_cmp";
+import Buttonrow from "./components/Price_button_cmp";
+import Table from "./components/Table_cmp";
+import Filter from "./components/Table_filter_cmp";
 
 function App() {
   const [data, setData] = useState([]);
@@ -28,7 +28,7 @@ function App() {
 
   const NEXT_PUBLIC_API_URL = process.env.REACT_APP_API_URL;
 
-  const getData = async () => {
+  const getCountryData = async () => {
     try {
       console.log("API_URL", NEXT_PUBLIC_API_URL);
       const response = await Axios.get(`${NEXT_PUBLIC_API_URL}countries`);
@@ -50,7 +50,7 @@ function App() {
   };
 
   useEffect(() => {
-    getData();
+    getCountryData();
     getCurrnecyData();
   }, []);
 
@@ -62,6 +62,15 @@ function App() {
     setSelectedCurrency(selectedOption);
   };
 
+  const handleCountryChange = (selectedOption) => {
+    setSelectedCountry(selectedOption);
+  };
+
+  const handleGetPrice = () => {
+    const price = calculatePrice(inputValue);
+    setPriceToDisplay(price);
+  };
+
   const handleInputChange = (event) => {
     const liters = parseFloat(event.target.value);
     if (!isNaN(liters) && liters >= 0) {
@@ -71,8 +80,10 @@ function App() {
     }
   };
 
-  const handleCountryChange = (selectedOption) => {
-    setSelectedCountry(selectedOption);
+  const handleGetConvertedPrice = () => {
+    const price = calculatePrice(inputValue);
+    const convertedPrice = calculateConvertedPrice(price);
+    setConvertedPriceToDisplay(convertedPrice);
   };
 
   const calculatePrice = (liters) => {
@@ -99,16 +110,9 @@ function App() {
     return 0;
   };
 
-  const handleGetPrice = () => {
-    const price = calculatePrice(inputValue);
-    setPriceToDisplay(price);
-  };
-
-  const handleGetConvertedPrice = () => {
-    const price = calculatePrice(inputValue);
-    const convertedPrice = calculateConvertedPrice(price);
-    setConvertedPriceToDisplay(convertedPrice);
-  };
+  const filteredCountries = data.filter((country) =>
+    country.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   const countryOptions = data.map((country) => ({
     value: country.name,
@@ -127,10 +131,6 @@ function App() {
     label: currencies.name,
     rate: currencies.value,
   }));
-
-  const filteredCountries = data.filter((country) =>
-    country.name.toLowerCase().includes(filter.toLowerCase())
-  );
 
   return (
     <>
