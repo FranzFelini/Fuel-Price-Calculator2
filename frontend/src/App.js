@@ -28,28 +28,31 @@ function App() {
 
   const NEXT_PUBLIC_API_URL = process.env.REACT_APP_API_URL;
 
-  const getAllData = async () => {
+  const getCountryData = async () => {
     try {
       console.log("API_URL", NEXT_PUBLIC_API_URL);
-      const countries_response = await Axios.get(
-        `${NEXT_PUBLIC_API_URL}countries`
-      );
-
-      const currencies_response = await Axios.get(
-        `${NEXT_PUBLIC_API_URL}currencies`
-      );
-
-      setData(countries_response.data);
-      setCurrencyData(currencies_response.data);
-      console.log(countries_response.data);
-      console.log(currencies_response.data);
+      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}countries`);
+      setData(response.data);
+    } catch (error) {
+      console.error(error, "nesto");
+    }
+  };
+  const getCurrencyData = async () => {
+    try {
+      console.log("API_URL", NEXT_PUBLIC_API_URL);
+      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}currencies`);
+      setCurrencyData(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getAllData();
+    getCountryData();
+  }, []);
+
+  useEffect(() => {
+    getCurrencyData();
   }, []);
 
   const handleFuelChange = (selectedOption) => {
