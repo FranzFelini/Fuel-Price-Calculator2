@@ -38,11 +38,13 @@ app.use(
   })
 );
 
-// Permissions-Policy header configuration to avoid errors
+// Permissions-Policy header configuration (with only basic features)
 app.use((req, res, next) => {
+  // Set Permissions-Policy header to restrict usage of certain features
+  // We are now only enabling very basic features and ignoring unsupported ones
   res.setHeader(
     "Permissions-Policy",
-    "accelerometer=(), geolocation=(), microphone=(), camera=()" // Disable unnecessary features
+    "geolocation=(), microphone=(), camera=()" // Disable potentially problematic features
   );
   next();
 });
