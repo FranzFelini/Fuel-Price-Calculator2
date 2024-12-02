@@ -8,15 +8,34 @@ const { updateCurrencyRates } = require("./Scrapers/CurrencyScraper");
 const cron = require("node-cron");
 const app = express();
 
+const allowedOrigins = [
+  "https://fuelpricecalculator2-hn4ylkv2i-franzfelinis-projects.vercel.app",
+  "https://fuelpricecalculator2-ip82tsliw-franzfelinis-projects.vercel.app",
+  "http://localhost:3000",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified origin.";
+        return callback(new Error(msg), false);
+      }
+
+      return callback(null, true);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
 app.get("/", (req, res) => {
   return res.send("running");
 });
-app.use(
-  cors({
-    origin:
-      "https://fuelpricecalculator2-ip82tsliw-franzfelinis-projects.vercel.app",
-  })
-);
 
 app.use(express.json());
 
