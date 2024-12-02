@@ -33,7 +33,7 @@ function App() {
       const response = await Axios.get(`${NEXT_PUBLIC_API_URL}countries`);
       setData(response.data);
     } catch (error) {
-      console.error(error, "nesto");
+      console.error(error);
     }
   };
   const getCurrencyData = async () => {
