@@ -13,8 +13,7 @@ app.get("/", (req, res) => {
 });
 app.use(
   cors({
-    origin:
-      "https://fuelpricecalculator2-ip82tsliw-franzfelinis-projects.vercel.app",
+    origin: "fuelpricecalculator2-adplazhv6-franzfelinis-projects.vercel.app",
   })
 );
 
