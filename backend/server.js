@@ -20,6 +20,8 @@ app.use(
 
 app.use(express.json());
 
+app.use(requestIp.mw());
+
 app.post("/log-user-agent", async (req, res) => {
   const userAgent = req.body.userAgent;
   const ipAddress = req.clientIp;
