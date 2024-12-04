@@ -9,7 +9,6 @@ const { updateCurrencyRates } = require("./Scrapers/CurrencyScraper");
 const cron = require("node-cron");
 const UserAgent = require("./models/userAgent");
 const requestIp = require("request-ip");
-const getClientIp = require("./getIP"); // Import the function to get client IP
 
 const app = express();
 
