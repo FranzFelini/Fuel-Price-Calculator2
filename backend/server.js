@@ -9,13 +9,33 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*", // Adjust as needed
+    origin: "*",
   })
 );
 
 app.use(express.json());
-
 app.use(requestIp.mw({ trustProxy: true }));
+
+app.post("/log-device-info", async (req, res) => {
+  const { os, osVersion, browser, version, mobile, cookieEnabled } = req.body;
+
+  try {
+    const newDeviceInfo = new DeviceInfo({
+      os,
+      osVersion,
+      browser,
+      version,
+      mobile,
+      cookieEnabled,
+    });
+
+    await newDeviceInfo.save();
+
+    res.status(201).send({ message: "Device info saved successfully!" });
+  } catch (error) {
+    res.status(500).send({ error: "Error saving device info" });
+  }
+});
 
 app.post("/log-user-info", async (req, res) => {
   console.log("POST /log-user-agent hit");
@@ -31,7 +51,6 @@ app.post("/log-user-info", async (req, res) => {
     ipAddress: ipAddress,
     screenSize: WindowSize,
   });
-
   try {
     await newUserAgent.save();
     res.send("User-Agent and IP address and Window Size logged successfully");
@@ -47,7 +66,6 @@ app.get("/", (req, res) => {
 
 const countriesRouter = require("./routes/countries");
 app.use("/countries", countriesRouter);
-
 const currencyRouter = require("./routes/currencies");
 app.use("/currencies", currencyRouter);
 
