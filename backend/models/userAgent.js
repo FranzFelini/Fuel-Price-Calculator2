@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 const userAgentSchema = new mongoose.Schema(
   {
-    ipAdress: {
+    ipAddress: {
       type: String,
+      required: true,
     },
     userAgent: {
       type: String,
