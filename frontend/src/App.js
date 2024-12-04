@@ -58,6 +58,21 @@ function App() {
     sendUserAgent();
   }, []);
 
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+
+    Axios.post(
+      "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/log-user-agent",
+      { userAgent }
+    )
+      .then((response) => {
+        console.log("User-Agent logged successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error logging User-Agent:", error);
+      });
+  }, []);
+
   const handleFuelChange = (selectedOption) => {
     setSelectedFuelType(selectedOption);
   };
