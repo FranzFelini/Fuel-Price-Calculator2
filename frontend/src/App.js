@@ -14,7 +14,6 @@ import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
-import { sendUserAgent } from "./userAgent/userAgent";
 
 function App() {
   const [data, setData] = useState([]);
@@ -31,51 +30,55 @@ function App() {
 
   const getCountryData = async () => {
     try {
-      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}countries`);
+      const response = await Axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}countries`
+      );
       setData(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching country data:", error);
     }
   };
+
+  // Function to fetch currency data
   const getCurrencyData = async () => {
     try {
-      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}currencies`);
+      const response = await Axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}currencies`
+      );
       setCurrencyData(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching currency data:", error);
     }
   };
 
+  // Function to log User-Agent and IP address
   const getID = async () => {
     const userAgent = navigator.userAgent;
-
-    await Axios.post(
-      "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/log-user-agent",
-      { userAgent }
-    )
-      .then((response) => {
-        console.log("User-Agent logged successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error logging User-Agent:", error);
-      });
+    try {
+      const response = await Axios.post(
+        "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/log-user-agent",
+        {
+          userAgent,
+        }
+      );
+      console.log("User-Agent logged successfully:", response.data);
+    } catch (error) {
+      console.error("Error logging User-Agent:", error);
+    }
   };
 
+  // Combined effect for loading data and logging User-Agent
   useEffect(() => {
-    getCountryData();
-  }, []);
+    const fetchData = async () => {
+      // First log the User-Agent
+      await getID();
+      // Then fetch country and currency data
+      await getCountryData();
+      await getCurrencyData();
+    };
 
-  useEffect(() => {
-    getCurrencyData();
-  }, []);
-
-  useEffect(() => {
-    sendUserAgent();
-  }, []);
-
-  useEffect(() => {
-    getID();
-  }, []);
+    fetchData(); // Call the async function to fetch all data
+  }, []); // Empty dependency array ensures this runs only once when the component mounts
 
   const handleFuelChange = (selectedOption) => {
     setSelectedFuelType(selectedOption);
