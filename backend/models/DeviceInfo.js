@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const DeviceinfoSchema = new mongoose.schema(
+const deviceinfoSchema = new mongoose.Schema(
   {
     OS: {
       type: String,
@@ -30,5 +30,5 @@ const DeviceinfoSchema = new mongoose.schema(
   { collection: "DeviceInfo" }
 );
 
-const DeviceInfoModel = mongoose.model("DeviceInfo", DeviceinfoSchema);
-module.exports = DeviceInfoModel;
+const DeviceInfo = mongoose.model("DeviceInfoModel", deviceinfoSchema);
+module.exports = DeviceInfo;

@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const requestIp = require("request-ip");
 const UserAgent = require("./models/userAgent");
+const DeviceInfo = require("./models/DeviceInfo");
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.get("/", (req, res) => {
 const countriesRouter = require("./routes/countries");
 app.use("/countries", countriesRouter);
 const currencyRouter = require("./routes/currencies");
+const DeviceInfoModel = require("./models/DeviceInfo");
 app.use("/currencies", currencyRouter);
 
 const connectDB = async () => {
