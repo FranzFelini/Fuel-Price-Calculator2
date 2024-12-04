@@ -14,19 +14,17 @@ app.use(
   })
 );
 
-// Parse JSON bodies
 app.use(express.json());
 
 // Middleware to capture IP address
-app.use(requestIp.mw({ trustProxy: true })); // Use this if you're behind a proxy
+app.use(requestIp.mw({ trustProxy: true }));
 
-// Route to log user-agent and IP address
 app.post("/log-user-agent", async (req, res) => {
-  console.log("POST /log-user-agent hit"); // Debugging
+  console.log("POST /log-user-agent hit");
   const userAgent = req.body.userAgent;
   const ipAddress = req.clientIp;
 
-  console.log("Captured IP Address:", ipAddress); // Debugging
+  console.log("Captured IP Address:", ipAddress);
 
   const newUserAgent = new UserAgent({
     userAgent: userAgent,
@@ -42,12 +40,16 @@ app.post("/log-user-agent", async (req, res) => {
   }
 });
 
-// Simple root route for testing server
 app.get("/", (req, res) => {
   return res.send("Server is running!");
 });
 
-// Database connection
+const countriesRouter = require("./routes/countries");
+app.use("/countries", countriesRouter);
+
+const currencyRouter = require("./routes/currencies");
+app.use("/currencies", currencyRouter);
+
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.DATABASE_URL);
@@ -60,6 +62,5 @@ const connectDB = async () => {
 
 connectDB();
 
-// Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
