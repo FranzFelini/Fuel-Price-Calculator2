@@ -14,6 +14,7 @@ import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
+import { sendUserAgent } from "./userAgent/userAgent";
 
 function App() {
   const [data, setData] = useState([]);
@@ -51,6 +52,10 @@ function App() {
 
   useEffect(() => {
     getCurrencyData();
+  }, []);
+
+  useEffect(() => {
+    sendUserAgent();
   }, []);
 
   const handleFuelChange = (selectedOption) => {
