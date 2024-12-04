@@ -2,27 +2,42 @@ require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
+const fs = require("fs");
 const Fuel = require("./models/country");
 const { updateFuelPrices } = require("./Scrapers/scraper");
 const { updateCurrencyRates } = require("./Scrapers/CurrencyScraper");
 const cron = require("node-cron");
+const UserAgent = require("./models/userAgent");
 
 const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: "*", // Promijeniti
   })
 );
 
 app.use(express.json());
 
-// Test route to check if the server is running
+app.post("/log-user-agent", async (req, res) => {
+  const userAgent = req.body.userAgent;
+
+  const newUserAgent = new UserAgent({
+    userAgent: userAgent,
+  });
+
+  try {
+    await newUserAgent.save();
+    res.send("User-Agent logged successfully");
+  } catch (err) {
+    console.error("Error saving User-Agent:", err);
+    res.status(500).send("Error logging User-Agent");
+  }
+});
 app.get("/", (req, res) => {
   return res.send("Server is running!");
 });
 
-// MongoDB connection
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.DATABASE_URL);
@@ -35,14 +50,12 @@ const connectDB = async () => {
 
 connectDB();
 
-// Define routes
 const countriesRouter = require("./routes/countries");
 app.use("/countries", countriesRouter);
 
 const currencyRouter = require("./routes/currencies");
 app.use("/currencies", currencyRouter);
 
-// Set up cron job to update fuel prices and currency rates every day at midnight
 cron.schedule("0 0 * * *", async () => {
   try {
     await updateCurrencyRates();
@@ -54,6 +67,5 @@ cron.schedule("0 0 * * *", async () => {
   }
 });
 
-// Start the server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
