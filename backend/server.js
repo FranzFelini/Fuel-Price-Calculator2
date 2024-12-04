@@ -26,6 +26,8 @@ app.post("/log-user-agent", async (req, res) => {
   const userAgent = req.body.userAgent;
   const ipAddress = req.clientIp;
 
+  console.log("Captured IP Address:", ipAddress);
+
   const newUserAgent = new UserAgent({
     userAgent: userAgent,
     ipAddress: ipAddress,
