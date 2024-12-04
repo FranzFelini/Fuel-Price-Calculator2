@@ -8,6 +8,8 @@ const { updateFuelPrices } = require("./Scrapers/scraper");
 const { updateCurrencyRates } = require("./Scrapers/CurrencyScraper");
 const cron = require("node-cron");
 const UserAgent = require("./models/userAgent");
+const requestIp = require("request-ip");
+const getClientIp = require("./getIP"); // Import the function to get client IP
 
 const app = express();
 
@@ -21,9 +23,11 @@ app.use(express.json());
 
 app.post("/log-user-agent", async (req, res) => {
   const userAgent = req.body.userAgent;
+  const ipAddress = req.clientIp;
 
   const newUserAgent = new UserAgent({
     userAgent: userAgent,
+    ipAddress: ipAddress,
   });
 
   try {
