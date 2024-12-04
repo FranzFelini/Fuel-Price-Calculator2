@@ -17,24 +17,24 @@ app.use(express.json());
 
 app.use(requestIp.mw({ trustProxy: true }));
 
-app.post("/log-user-agent", async (req, res) => {
+app.post("/log-user-info", async (req, res) => {
   console.log("POST /log-user-agent hit");
   const userAgent = req.body.userAgent;
-  const screenSize = req.body.ScreenSize;
   const ipAddress = req.clientIp;
+  const WindowSize = req.body.FullSize;
 
   console.log("Captured IP Address:", ipAddress);
-  console.log("Screen Size : ", screenSize);
+  console.log("Full window size : ", WindowSize);
 
   const newUserAgent = new UserAgent({
     userAgent: userAgent,
     ipAddress: ipAddress,
-    screenSize: screenSize,
+    screenSize: WindowSize,
   });
 
   try {
     await newUserAgent.save();
-    res.send("User-Agent and IP address logged successfully");
+    res.send("User-Agent and IP address and Window Size logged successfully");
   } catch (err) {
     console.error("Error saving User-Agent:", err);
     res.status(500).send("Error logging User-Agent");
