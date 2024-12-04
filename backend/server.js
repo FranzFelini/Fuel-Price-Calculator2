@@ -21,12 +21,12 @@ app.post("/log-device-info", async (req, res) => {
 
   try {
     const newDeviceInfo = new DeviceInfo({
-      os,
-      osVersion,
-      browser,
-      version,
-      mobile,
-      cookieEnabled,
+      OS: os,
+      osVersion: osVersion,
+      Browser: browser,
+      Version: version,
+      Mobile: mobile,
+      cookieEnabled: cookieEnabled,
     });
 
     await newDeviceInfo.save();
