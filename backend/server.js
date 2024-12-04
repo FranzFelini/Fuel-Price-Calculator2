@@ -7,7 +7,6 @@ const UserAgent = require("./models/userAgent");
 
 const app = express();
 
-// CORS setup
 app.use(
   cors({
     origin: "*", // Adjust as needed
@@ -16,7 +15,6 @@ app.use(
 
 app.use(express.json());
 
-// Middleware to capture IP address
 app.use(requestIp.mw({ trustProxy: true }));
 
 app.post("/log-user-agent", async (req, res) => {
