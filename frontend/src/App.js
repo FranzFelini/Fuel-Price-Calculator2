@@ -1,4 +1,4 @@
-import { default as Axios } from "axios";
+import Axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 import About from "./components/About_cmp";
