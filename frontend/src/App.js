@@ -46,6 +46,21 @@ function App() {
     }
   };
 
+  const getID = async () => {
+    const userAgent = navigator.userAgent;
+
+    await Axios.post(
+      "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/log-user-agent",
+      { userAgent }
+    )
+      .then((response) => {
+        console.log("User-Agent logged successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error logging User-Agent:", error);
+      });
+  };
+
   useEffect(() => {
     getCountryData();
   }, []);
@@ -59,18 +74,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const userAgent = navigator.userAgent;
-
-    Axios.post(
-      "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/log-user-agent",
-      { userAgent }
-    )
-      .then((response) => {
-        console.log("User-Agent logged successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error logging User-Agent:", error);
-      });
+    getID();
   }, []);
 
   const handleFuelChange = (selectedOption) => {
