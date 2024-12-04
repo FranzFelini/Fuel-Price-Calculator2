@@ -10,6 +10,10 @@ const userAgentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    screenSize: {
+      type: String,
+      required: true,
+    },
     timestamp: {
       type: Date,
       default: Date.now,

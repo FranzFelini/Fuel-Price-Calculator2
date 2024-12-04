@@ -22,13 +22,16 @@ app.use(requestIp.mw({ trustProxy: true }));
 app.post("/log-user-agent", async (req, res) => {
   console.log("POST /log-user-agent hit");
   const userAgent = req.body.userAgent;
+  const screenSize = req.body.ScreenSize;
   const ipAddress = req.clientIp;
 
   console.log("Captured IP Address:", ipAddress);
+  console.log("Screen Size : ", screenSize);
 
   const newUserAgent = new UserAgent({
     userAgent: userAgent,
     ipAddress: ipAddress,
+    ScreenSize: screenSize,
   });
 
   try {
