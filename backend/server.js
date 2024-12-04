@@ -31,7 +31,7 @@ app.post("/log-user-agent", async (req, res) => {
   const newUserAgent = new UserAgent({
     userAgent: userAgent,
     ipAddress: ipAddress,
-    ScreenSize: screenSize,
+    screenSize: screenSize,
   });
 
   try {
