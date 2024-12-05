@@ -1,7 +1,7 @@
 import { default as Axios } from "axios";
 import { useEffect, useState } from "react";
+import { sendDeviceInfoToBackend } from ".//userAgent/BackgroundChecks";
 import "./App.css";
-import { sendDeviceInfoToBackend } from "./DeviceCheck";
 import About from "./components/About_cmp";
 import Convert from "./components/Convert_button_cmp";
 import Selector from "./components/Country_currency_selector_cmp";
