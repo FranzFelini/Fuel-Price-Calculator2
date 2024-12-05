@@ -15,7 +15,7 @@ import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
 import { DeviceCheck } from "./userAgent/BackgroundChecks";
-import { sendUserAgent } from "./userAgent/userAgent";
+import { sendUserAgent } from "./userAgent/UAtest";
 
 function App() {
   const [data, setData] = useState([]);
@@ -67,7 +67,7 @@ function App() {
         "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/log-device-info",
         { deviceInfo }
       );
-      console.log("DEVICE DATA SENT:", response.data);
+      console.log("DEVICE DATA SENT TO:", response.data);
     } catch (error) {
       console.log(
         "THIS IS SOMETHING UNIQUE SO I KNOW IT IS AXIOS ERROR",
