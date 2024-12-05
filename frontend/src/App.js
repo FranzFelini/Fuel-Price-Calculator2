@@ -46,9 +46,6 @@ function App() {
       console.error(error);
     }
   };
-  //nestoooooooooooooooooooooo za probuuuuuuuuuuuuu
-  // jos nesto z apriobuuuuuuuu
-
   useEffect(() => {
     getCountryData();
   }, []);
