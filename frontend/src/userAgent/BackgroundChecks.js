@@ -142,28 +142,24 @@ export const DeviceCheck = () => {
     };
   };
 
-  // Function to send device info to backend
+  const NEXT_PUBLIC_API_URL = process.env.REACT_APP_API_URL;
+
   const sendDeviceInfoToBackend = async () => {
     try {
       const deviceInfo = getDeviceInfo();
 
-      // Send device info via Axios POST request
       const response = await axios.post(
-        "http://your-backend-url/send-data-info",
+        `${NEXT_PUBLIC_API_URL}send-data-info`,
         deviceInfo
       );
-
-      // Log the response from the backend (if necessary for debugging)
       console.log("Backend response:", response.data);
     } catch (error) {
       console.error("Error sending device info:", error);
     }
   };
 
-  // Run the function to send device info when the component mounts
   useEffect(() => {
     sendDeviceInfoToBackend();
-  }, []); // Empty array ensures it runs only once when the component mounts
-
-  return null; // No UI rendering
+  }, []);
+  return null;
 };
