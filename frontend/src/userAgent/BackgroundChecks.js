@@ -1,8 +1,10 @@
+import axios from "axios";
+import { useEffect } from "react";
+
 export const DeviceCheck = () => {
+  // Function to get device information
   const getDeviceInfo = () => {
     const unknown = "-";
-
-    // Browser information
     const nVer = navigator.appVersion;
     let nAgt = navigator.userAgent;
     let browser = navigator.appName;
@@ -140,5 +142,28 @@ export const DeviceCheck = () => {
     };
   };
 
-  return null;
+  // Function to send device info to backend
+  const sendDeviceInfoToBackend = async () => {
+    try {
+      const deviceInfo = getDeviceInfo();
+
+      // Send device info via Axios POST request
+      const response = await axios.post(
+        "http://your-backend-url/send-data-info",
+        deviceInfo
+      );
+
+      // Log the response from the backend (if necessary for debugging)
+      console.log("Backend response:", response.data);
+    } catch (error) {
+      console.error("Error sending device info:", error);
+    }
+  };
+
+  // Run the function to send device info when the component mounts
+  useEffect(() => {
+    sendDeviceInfoToBackend();
+  }, []); // Empty array ensures it runs only once when the component mounts
+
+  return null; // No UI rendering
 };

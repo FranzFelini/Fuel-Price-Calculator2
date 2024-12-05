@@ -1,4 +1,4 @@
-import { default as Axios, default as axios } from "axios";
+import { default as Axios } from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 import About from "./components/About_cmp";
@@ -14,7 +14,6 @@ import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
-import { DeviceCheck } from "./userAgent/BackgroundChecks";
 import { sendUserAgent } from "./userAgent/UAtest";
 
 function App() {
@@ -60,21 +59,6 @@ function App() {
   }, []);
 
   // sendDeviceInfo()
-  useEffect(() => {
-    const deviceInfo = DeviceCheck();
-    try {
-      const response = axios.post(
-        "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/log-device-info",
-        { deviceInfo }
-      );
-      console.log("DEVICE DATA SENT TO:", response.data);
-    } catch (error) {
-      console.log(
-        "THIS IS SOMETHING UNIQUE SO I KNOW IT IS AXIOS ERROR",
-        error
-      );
-    }
-  }, []);
 
   const handleFuelChange = (selectedOption) => {
     setSelectedFuelType(selectedOption);
