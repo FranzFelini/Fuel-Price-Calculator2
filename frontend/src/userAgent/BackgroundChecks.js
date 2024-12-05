@@ -12,44 +12,32 @@ export const getDeviceInfo = () => {
   console.log("User Agent:", nAgt); // Log user agent
   console.log("App Version:", nVer); // Log app version
 
-  // Opera
+  // Detect browser
   if ((verOffset = nAgt.indexOf("Opera")) !== -1) {
     browser = "Opera";
     version = nAgt.substring(verOffset + 6);
     if ((verOffset = nAgt.indexOf("Version")) !== -1) {
       version = nAgt.substring(verOffset + 8);
     }
-  }
-  // MSIE
-  else if ((verOffset = nAgt.indexOf("MSIE")) !== -1) {
+  } else if ((verOffset = nAgt.indexOf("MSIE")) !== -1) {
     browser = "Microsoft Internet Explorer";
     version = nAgt.substring(verOffset + 5);
-  }
-  // Chrome
-  else if ((verOffset = nAgt.indexOf("Chrome")) !== -1) {
+  } else if ((verOffset = nAgt.indexOf("Chrome")) !== -1) {
     browser = "Chrome";
     version = nAgt.substring(verOffset + 7);
-  }
-  // Safari
-  else if ((verOffset = nAgt.indexOf("Safari")) !== -1) {
+  } else if ((verOffset = nAgt.indexOf("Safari")) !== -1) {
     browser = "Safari";
     version = nAgt.substring(verOffset + 7);
     if ((verOffset = nAgt.indexOf("Version")) !== -1) {
       version = nAgt.substring(verOffset + 8);
     }
-  }
-  // Firefox
-  else if ((verOffset = nAgt.indexOf("Firefox")) !== -1) {
+  } else if ((verOffset = nAgt.indexOf("Firefox")) !== -1) {
     browser = "Firefox";
     version = nAgt.substring(verOffset + 8);
-  }
-  // MSIE 11+
-  else if (nAgt.indexOf("Trident/") !== -1) {
+  } else if (nAgt.indexOf("Trident/") !== -1) {
     browser = "Microsoft Internet Explorer";
     version = nAgt.substring(nAgt.indexOf("rv:") + 3);
-  }
-  // Other browsers
-  else if (
+  } else if (
     (nameOffset = nAgt.lastIndexOf(" ") + 1) <
     (verOffset = nAgt.lastIndexOf("/"))
   ) {
@@ -64,7 +52,7 @@ export const getDeviceInfo = () => {
   console.log("Browser:", browser);
   console.log("Version:", version);
 
-  // trim the version string
+  // Trim the version string
   if ((ix = version.indexOf(";")) !== -1) version = version.substring(0, ix);
   if ((ix = version.indexOf(" ")) !== -1) version = version.substring(0, ix);
   if ((ix = version.indexOf(")")) !== -1) version = version.substring(0, ix);
@@ -113,8 +101,6 @@ export const getDeviceInfo = () => {
 
   console.log("DETECTED OS : ", os);
 
-  //testna
-
   let osVersion = unknown;
   if (/Windows/.test(os)) {
     osVersion = /Windows (.*)/.exec(os)[1];
@@ -138,7 +124,8 @@ export const getDeviceInfo = () => {
 
   console.log("OS Version:", osVersion); // Log the OS version
 
-  return {
+  // Check if the return value is correct
+  const deviceInfo = {
     os,
     osVersion,
     browser,
@@ -146,22 +133,20 @@ export const getDeviceInfo = () => {
     mobile,
     cookieEnabled,
   };
+
+  console.log("Device Info to send:", deviceInfo); // Check the returned object
+
+  return deviceInfo;
 };
 
 export const sendDeviceInfoToBackend = async () => {
   try {
     const deviceInfo = getDeviceInfo();
-    console.log(deviceInfo);
+    console.log("Device Info (Before Send):", deviceInfo); // Log the device info before sending
+
     const response = await axios.post(
       "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/send-data-info",
-      {
-        os: deviceInfo.os,
-        osVersion: deviceInfo.osVersion,
-        browser: deviceInfo.browser,
-        version: deviceInfo.version,
-        mobile: deviceInfo.mobile,
-        cookieEnabled: deviceInfo.cookieEnabled,
-      }
+      deviceInfo // Send the object directly
     );
     console.log("Backend response:", response.data);
   } catch (error) {

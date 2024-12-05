@@ -30,6 +30,10 @@ app.post("/send-data-info", async (req, res) => {
   const MOBILE = req.body.Mobile;
   const COOKIE = req.body.cookieEnabled;
 
+  if (!OS || !OSSVERSION || !BROWSER || !VERSION) {
+    console.log("data missing").res.status(200).send("data missing");
+  }
+
   console.log(
     "CAPTURED DATA = [",
 
