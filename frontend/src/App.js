@@ -47,6 +47,8 @@ function App() {
     }
   };
   //nestoooooooooooooooooooooo za probuuuuuuuuuuuuu
+  // jos nesto z apriobuuuuuuuu
+
   useEffect(() => {
     getCountryData();
   }, []);
