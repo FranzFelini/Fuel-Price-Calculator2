@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const getDeviceInfo = () => {
-  const unknown = "-";
   const nVer = navigator.appVersion;
   let nAgt = navigator.userAgent;
   let browser = navigator.appName;
@@ -72,7 +71,7 @@ export const getDeviceInfo = () => {
   console.log("Cookies Enabled:", cookieEnabled); // Log cookieEnabled status
 
   // Identify OS
-  let os = unknown;
+  let os = "";
   const clientStrings = [
     { s: "Windows 3.11", r: /Win16/ },
     { s: "Windows 95", r: /(Windows 95|Win95|Windows_95)/ },
@@ -101,7 +100,7 @@ export const getDeviceInfo = () => {
 
   console.log("DETECTED OS : ", os);
 
-  let osVersion = unknown;
+  let osVersion = "";
   if (/Windows/.test(os)) {
     osVersion = /Windows (.*)/.exec(os)[1];
     os = "Windows";
