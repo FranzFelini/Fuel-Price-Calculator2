@@ -1,4 +1,4 @@
-import { default as Axios } from "axios";
+import { default as axios } from "axios";
 import { useEffect, useState } from "react";
 import { sendDeviceInfoToBackend } from ".//userAgent/BackgroundChecks";
 import "./App.css";
@@ -32,7 +32,7 @@ function App() {
 
   const getCountryData = async () => {
     try {
-      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}countries`);
+      const response = await axios.get(`${NEXT_PUBLIC_API_URL}countries`);
       setData(response.data);
     } catch (error) {
       console.error(error);
@@ -40,7 +40,7 @@ function App() {
   };
   const getCurrencyData = async () => {
     try {
-      const response = await Axios.get(`${NEXT_PUBLIC_API_URL}currencies`);
+      const response = await axios.get(`${NEXT_PUBLIC_API_URL}currencies`);
       setCurrencyData(response.data);
     } catch (error) {
       console.error(error);
