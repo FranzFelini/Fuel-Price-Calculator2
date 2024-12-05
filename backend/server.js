@@ -51,12 +51,14 @@ app.post("/log-device-info", async (req, res) => {
     Version: version,
     Mobile: mobile,
     cookieEnabled: cookieEnabled,
+    s,
   });
 
   try {
     await newDeviceInfo.save();
     res.send("Data sucessfully saved into the database !");
   } catch (error) {
+    console.error("Error saving to database: ", error);
     res.status(500).send({ error: "Error saving device info" });
   }
 });
