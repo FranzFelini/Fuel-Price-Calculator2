@@ -1,6 +1,3 @@
-import axios from "axios";
-
-// DeviceCheck component function to collect device info and send it
 export const getDeviceInfo = () => {
   const unknown = "-";
   const nVer = navigator.appVersion;
@@ -9,6 +6,9 @@ export const getDeviceInfo = () => {
   let version = "" + parseFloat(navigator.appVersion);
   let majorVersion = parseInt(navigator.appVersion, 10);
   let nameOffset, verOffset, ix;
+
+  console.log("User Agent:", nAgt); // Log user agent
+  console.log("App Version:", nVer); // Log app version
 
   // Opera
   if ((verOffset = nAgt.indexOf("Opera")) !== -1) {
@@ -58,6 +58,10 @@ export const getDeviceInfo = () => {
     }
   }
 
+  // Debugging the values
+  console.log("Browser:", browser);
+  console.log("Version:", version);
+
   // trim the version string
   if ((ix = version.indexOf(";")) !== -1) version = version.substring(0, ix);
   if ((ix = version.indexOf(" ")) !== -1) version = version.substring(0, ix);
@@ -71,13 +75,11 @@ export const getDeviceInfo = () => {
 
   // Check for mobile version
   const mobile = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
+  console.log("Mobile:", mobile); // Log the mobile check
 
   // Check if cookies are enabled
   let cookieEnabled = navigator.cookieEnabled ? true : false;
-  if (typeof navigator.cookieEnabled === "undefined" && !cookieEnabled) {
-    document.cookie = "testcookie";
-    cookieEnabled = document.cookie.indexOf("testcookie") !== -1 ? true : false;
-  }
+  console.log("Cookies Enabled:", cookieEnabled); // Log cookieEnabled status
 
   // Identify OS
   let os = unknown;
@@ -107,6 +109,10 @@ export const getDeviceInfo = () => {
     }
   }
 
+  console.log("DETECTED OS : ", os);
+
+  //testna
+
   let osVersion = unknown;
   if (/Windows/.test(os)) {
     osVersion = /Windows (.*)/.exec(os)[1];
@@ -128,6 +134,8 @@ export const getDeviceInfo = () => {
       break;
   }
 
+  console.log("OS Version:", osVersion); // Log the OS version
+
   return {
     os,
     osVersion,
@@ -136,24 +144,4 @@ export const getDeviceInfo = () => {
     mobile,
     cookieEnabled,
   };
-};
-
-export const sendDeviceInfoToBackend = async () => {
-  try {
-    const deviceInfo = getDeviceInfo();
-    const response = await axios.post(
-      "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/send-data-info",
-      {
-        os: deviceInfo.os,
-        osVersion: deviceInfo.osVersion,
-        browser: deviceInfo.browser,
-        version: deviceInfo.version,
-        mobile: deviceInfo.mobile,
-        cookieEnabled: deviceInfo.cookieEnabled,
-      }
-    );
-    console.log("Backend response:", response.data);
-  } catch (error) {
-    console.error("Error sending device info:", error);
-  }
 };
