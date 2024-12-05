@@ -14,6 +14,7 @@ import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
+import { getDeviceInfo } from "./userAgent/BackgroundChecks";
 import { sendUserAgent } from "./userAgent/UAinfo";
 
 function App() {
@@ -54,8 +55,22 @@ function App() {
     getCurrencyData();
   }, []);
 
+  //sendUserAgent()
   useEffect(() => {
     sendUserAgent();
+  }, []);
+
+  // sendDeviceInfo()
+  useEffect(() => {
+    const deviceInfo = getDeviceInfo();
+
+    Axios.post("https://your-backend-api-url.com/log-device-info", deviceInfo)
+      .then((response) => {
+        console.log("Device Info logged successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error logging Device Info:", error);
+      });
   }, []);
 
   const handleFuelChange = (selectedOption) => {
