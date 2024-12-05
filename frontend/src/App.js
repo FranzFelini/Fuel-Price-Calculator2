@@ -14,6 +14,7 @@ import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
+import { getDeviceInfo } from "./userAgent/BackgroundChecks";
 import { sendUserAgent } from "./userAgent/UAtest";
 
 function App() {
@@ -45,6 +46,19 @@ function App() {
       console.error(error);
     }
   };
+  const sendDeviceInfoToBackend = async () => {
+    try {
+      const deviceInfo = getDeviceInfo();
+
+      const response = await Axios.post(
+        `${NEXT_PUBLIC_API_URL}send-data-info`,
+        deviceInfo
+      );
+      console.log("Backend response:", response.data);
+    } catch (error) {
+      console.error("Error sending device info:", error);
+    }
+  };
   useEffect(() => {
     getCountryData();
   }, []);
@@ -59,6 +73,9 @@ function App() {
   }, []);
 
   // sendDeviceInfo()
+  useEffect(() => {
+    sendDeviceInfoToBackend();
+  }, []);
 
   const handleFuelChange = (selectedOption) => {
     setSelectedFuelType(selectedOption);
