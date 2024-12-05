@@ -14,7 +14,7 @@ import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
-import { getDeviceInfo } from "./userAgent/BackgroundChecks";
+import { DeviceCheck } from "./userAgent/BackgroundChecks";
 import { sendUserAgent } from "./userAgent/UAinfo";
 
 function App() {
@@ -62,7 +62,7 @@ function App() {
 
   // sendDeviceInfo()
   useEffect(() => {
-    const deviceInfo = getDeviceInfo();
+    const deviceInfo = DeviceCheck();
 
     Axios.post("https://your-backend-api-url.com/log-device-info", deviceInfo)
       .then((response) => {
