@@ -1,4 +1,4 @@
-import axios from "axios";
+import Axios from "axios";
 
 // DeviceCheck component function to collect device info and send it
 export const getDeviceInfo = () => {
@@ -142,7 +142,7 @@ export const sendDeviceInfoToBackend = async () => {
   try {
     const deviceInfo = getDeviceInfo();
     const NEXT_PUBLIC_API_URL = process.env.REACT_APP_API_URL;
-    const response = await axios.post(`${NEXT_PUBLIC_API_URL}/send-data-info`, {
+    const response = await Axios.post(`${NEXT_PUBLIC_API_URL}send-data-info`, {
       deviceInfo,
     });
     console.log("Backend response:", response.data);
