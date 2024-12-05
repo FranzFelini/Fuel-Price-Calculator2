@@ -65,6 +65,7 @@ function App() {
     sendDeviceInfoToBackend();
   }, []);
 
+  ///nanana test nesto
   const handleFuelChange = (selectedOption) => {
     setSelectedFuelType(selectedOption);
   };
