@@ -98,26 +98,5 @@ cron.schedule("0 0 * * *", async () => {
   }
 });
 
-cron.schedule("0 0 * * 0", async () => {
-  app.delete("/clear-user-agents", async (req, res) => {
-    try {
-      const result = await UserAgent.deleteMany({});
-      res.status(200).send({
-        message: "UA cleadred",
-        deletedCount: result.deletedCount,
-      });
-    } catch (error) {
-      console.error(
-        "Error clearing UA for some reason that will take you a day to find out moron, here:",
-        error
-      );
-      res.status(500).send({
-        error:
-          "Internal Server Error clearing UA collection so for the first time it's not your fault!",
-      });
-    }
-  });
-});
-
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
