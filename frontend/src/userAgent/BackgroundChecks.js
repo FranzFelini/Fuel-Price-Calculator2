@@ -141,10 +141,12 @@ export const getDeviceInfo = () => {
 export const sendDeviceInfoToBackend = async () => {
   try {
     const deviceInfo = getDeviceInfo();
-    const NEXT_PUBLIC_API_URL = process.env.REACT_APP_API_URL;
-    const response = await axios.post(`${NEXT_PUBLIC_API_URL}send-data-info`, {
-      deviceInfo,
-    });
+    const response = await axios.post(
+      "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/send-data-info",
+      {
+        deviceInfo,
+      }
+    );
     console.log("Backend response:", response.data);
   } catch (error) {
     console.error("Error sending device info:", error);
