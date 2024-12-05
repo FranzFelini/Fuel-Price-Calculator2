@@ -19,7 +19,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(bodyParser.json()); // To parse JSON bodies
+app.use(bodyParser.json());
 app.use(requestIp.mw({ trustProxy: true }));
 
 app.post("/send-data-info", async (req, res) => {
@@ -32,6 +32,7 @@ app.post("/send-data-info", async (req, res) => {
 
   console.log(
     "CAPTURED DATA = [",
+
     "OS:",
     OS,
     "osVersion: ",
@@ -44,6 +45,7 @@ app.post("/send-data-info", async (req, res) => {
     MOBILE,
     "Are Cookies enabled:",
     COOKIE,
+
     "]"
   );
   const newDeviceInfo = new DeviceInfo({
