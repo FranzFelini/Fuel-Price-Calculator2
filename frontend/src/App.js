@@ -65,7 +65,7 @@ function App() {
     const deviceInfo = DeviceCheck();
     try {
       const response = axios.post(
-        "https://your-backend-api-url.com/log-device-info",
+        "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/log-device-info",
         { deviceInfo }
       );
       console.log("DEVICE DATA SENT:", response.data);
