@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const getDeviceInfo = () => {
   const unknown = "-";
   const nVer = navigator.appVersion;
@@ -144,4 +146,24 @@ export const getDeviceInfo = () => {
     mobile,
     cookieEnabled,
   };
+};
+
+export const sendDeviceInfoToBackend = async () => {
+  try {
+    const deviceInfo = getDeviceInfo();
+    const response = await axios.post(
+      "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/send-data-info",
+      {
+        os: deviceInfo.os,
+        osVersion: deviceInfo.osVersion,
+        browser: deviceInfo.browser,
+        version: deviceInfo.version,
+        mobile: deviceInfo.mobile,
+        cookieEnabled: deviceInfo.cookieEnabled,
+      }
+    );
+    console.log("Backend response:", response.data);
+  } catch (error) {
+    console.error("Error sending device info:", error);
+  }
 };
