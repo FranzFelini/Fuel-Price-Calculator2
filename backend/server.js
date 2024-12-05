@@ -23,36 +23,36 @@ app.use(bodyParser.json()); // To parse JSON bodies
 app.use(requestIp.mw({ trustProxy: true }));
 
 app.post("/send-data-info", async (req, res) => {
-  const os = req.body.os;
-  const osVersion = req.body.osVersion;
-  const browser = req.body.Browser;
-  const version = req.body.Version;
-  const mobile = req.body.Mobile;
-  const cookieEnabled = req.body.cookieEnabled;
+  const OS = req.body.os;
+  const OSSVERSION = req.body.osVersion;
+  const BROWSER = req.body.Browser;
+  const VERSION = req.body.Version;
+  const MOBILE = req.body.Mobile;
+  const COOKIE = req.body.cookieEnabled;
 
   console.log(
     "CAPTURED DATA = [",
     "OS:",
-    os,
+    OS,
     "osVersion: ",
-    osVersion,
+    OSSVERSION,
     "Browser: ",
-    browser,
+    BROWSER,
     "Version: ",
-    version,
+    VERSION,
     "Mobile: ",
-    mobile,
+    MOBILE,
     "Are Cookies enabled:",
-    cookieEnabled,
+    COOKIE,
     "]"
   );
   const newDeviceInfo = new DeviceInfo({
-    OS: os,
-    osVersion: osVersion,
-    Browser: browser,
-    Version: version,
-    Mobile: mobile,
-    cookieEnabled: cookieEnabled,
+    OS: OS,
+    osVersion: OSSVERSION,
+    Browser: BROWSER,
+    Version: VERSION,
+    Mobile: MOBILE,
+    cookieEnabled: COOKIE,
   });
 
   try {

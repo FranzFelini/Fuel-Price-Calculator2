@@ -151,6 +151,7 @@ export const getDeviceInfo = () => {
 export const sendDeviceInfoToBackend = async () => {
   try {
     const deviceInfo = getDeviceInfo();
+    console.log(deviceInfo);
     const response = await axios.post(
       "https://fuelpricecalculator-87c55c1de61b.herokuapp.com/send-data-info",
       {
