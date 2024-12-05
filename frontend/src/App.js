@@ -15,7 +15,7 @@ import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
 import { DeviceCheck } from "./userAgent/BackgroundChecks";
-import { sendUserAgent } from "./userAgent/UAinfo";
+import { sendUserAgent } from "./userAgent/userAgent";
 
 function App() {
   const [data, setData] = useState([]);
