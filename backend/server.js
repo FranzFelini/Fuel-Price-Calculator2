@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const requestIp = require("request-ip");
 const UserAgent = require("./models/userAgent");
 const DeviceInfo = require("./models/DeviceInfo");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -16,10 +17,12 @@ app.use(
 );
 
 app.use(express.json());
+app.use(bodyParser.json()); // To parse JSON bodies
 app.use(requestIp.mw({ trustProxy: true }));
 
 app.post("/log-device-info", async (req, res) => {
   const { os, osVersion, browser, version, mobile, cookieEnabled } = req.body;
+  console.log("Received Device Info:", req.body); // Log the incoming body
 
   try {
     const newDeviceInfo = new DeviceInfo({
@@ -100,7 +103,7 @@ cron.schedule("0 0 * * 0", async () => {
     try {
       const result = await UserAgent.deleteMany({});
       res.status(200).send({
-        essage: "UA cleadred",
+        message: "UA cleadred",
         deletedCount: result.deletedCount,
       });
     } catch (error) {
@@ -108,12 +111,10 @@ cron.schedule("0 0 * * 0", async () => {
         "Error clearing UA for some reason that will take you a day to find out moron, here:",
         error
       );
-      res
-        .status(500)
-        .send({
-          error:
-            "Internal Server Error clearing UA collection so for the first time it's not your fault!",
-        });
+      res.status(500).send({
+        error:
+          "Internal Server Error clearing UA collection so for the first time it's not your fault!",
+      });
     }
   });
 });
