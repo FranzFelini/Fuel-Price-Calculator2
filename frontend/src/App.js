@@ -1,4 +1,4 @@
-import Axios from "axios";
+import { default as Axios, default as axios } from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 import About from "./components/About_cmp";
@@ -63,14 +63,18 @@ function App() {
   // sendDeviceInfo()
   useEffect(() => {
     const deviceInfo = DeviceCheck();
-
-    Axios.post("https://your-backend-api-url.com/log-device-info", deviceInfo)
-      .then((response) => {
-        console.log("Device Info logged successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error logging Device Info:", error);
-      });
+    try {
+      const response = axios.post(
+        "https://your-backend-api-url.com/log-device-info",
+        { deviceInfo }
+      );
+      console.log("DEVICE DATA SENT:", response.data);
+    } catch (error) {
+      console.log(
+        "THIS IS SOMETHING UNIQUE SO I KNOW IT IS AXIOS ERROR",
+        error
+      );
+    }
   }, []);
 
   const handleFuelChange = (selectedOption) => {
