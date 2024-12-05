@@ -21,22 +21,41 @@ app.use(bodyParser.json()); // To parse JSON bodies
 app.use(requestIp.mw({ trustProxy: true }));
 
 app.post("/log-device-info", async (req, res) => {
-  const { os, osVersion, browser, version, mobile, cookieEnabled } = req.body;
-  console.log("Received Device Info:", req.body); // Log the incoming body
+  const os = req.body.os;
+  const osVersion = req.body.osVersion;
+  const browser = req.body.Browser;
+  const version = req.body.Version;
+  const mobile = req.body.Mobile;
+  const cookieEnabled = req.body.cookieEnabled;
+
+  console.log(
+    "CAPTURED DATA = [",
+    "OS:",
+    os,
+    "osVersion: ",
+    osVersion,
+    "Browser: ",
+    browser,
+    "Version: ",
+    version,
+    "Mobile: ",
+    mobile,
+    "Are Cookies enabled:",
+    cookieEnabled,
+    "]"
+  );
+  const newDeviceInfo = new DeviceInfo({
+    OS: os,
+    osVersion: osVersion,
+    Browser: browser,
+    Version: version,
+    Mobile: mobile,
+    cookieEnabled: cookieEnabled,
+  });
 
   try {
-    const newDeviceInfo = new DeviceInfo({
-      OS: os,
-      osVersion: osVersion,
-      Browser: browser,
-      Version: version,
-      Mobile: mobile,
-      cookieEnabled: cookieEnabled,
-    });
-
     await newDeviceInfo.save();
-
-    res.status(201).send({ message: "Device info saved successfully!" });
+    res.send("Data sucessfully saved into the database !");
   } catch (error) {
     res.status(500).send({ error: "Error saving device info" });
   }
