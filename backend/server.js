@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(bodyParser.json()); // To parse JSON bodies
 app.use(requestIp.mw({ trustProxy: true }));
 
-app.post("/log-device-info", async (req, res) => {
+app.post("/send-data-info", async (req, res) => {
   const os = req.body.os;
   const osVersion = req.body.osVersion;
   const browser = req.body.Browser;
