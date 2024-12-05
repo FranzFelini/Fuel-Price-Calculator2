@@ -147,10 +147,9 @@ export const DeviceCheck = () => {
   const sendDeviceInfoToBackend = async () => {
     try {
       const deviceInfo = getDeviceInfo();
-
       const response = await axios.post(
         `${NEXT_PUBLIC_API_URL}send-data-info`,
-        deviceInfo
+        { deviceInfo }
       );
       console.log("Backend response:", response.data);
     } catch (error) {
