@@ -126,5 +126,35 @@ cron.schedule("0 0 * * *", async () => {
   }
 });
 
+cron.schedule("0 0 * * 0", async () => {
+  app.delete("/clear-user-agents", async (req, res) => {
+    try {
+      const result = await UserAgent.deleteMany({});
+      res.status(200).send({
+        message: "cleared",
+        deletedCount: result.deletedCount,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send({ error: "Error" });
+    }
+  });
+});
+
+cron.schedule("0 0 * * 0", async () => {
+  app.delete("/clear-user-agents", async (req, res) => {
+    try {
+      const result = await DeviceInfo.deleteMany({});
+      res.status(200).send({
+        message: "cleared2",
+        deletedCount: result.deletedCount,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send({ error: "Error" });
+    }
+  });
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
