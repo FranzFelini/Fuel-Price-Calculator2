@@ -1,6 +1,5 @@
 import { default as axios } from "axios";
 import { useEffect, useState } from "react";
-import { sendDeviceInfoToBackend } from ".//userAgent/BackgroundChecks";
 import "./App.css";
 import About from "./components/About_cmp";
 import Convert from "./components/Convert_button_cmp";
@@ -15,7 +14,6 @@ import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
-import FingerprintComponent from "./components/fingerprint_cmp";
 import { sendUserAgent } from "./userAgent/UAtest";
 
 function App() {
@@ -59,15 +57,6 @@ function App() {
   //sendUserAgent()
   useEffect(() => {
     sendUserAgent();
-  }, []);
-
-  useEffect(() => {
-    FingerprintComponent();
-  });
-
-  useEffect(() => {
-    // Trigger the device info sending logic
-    sendDeviceInfoToBackend();
   }, []);
 
   ///nanana test nesto
