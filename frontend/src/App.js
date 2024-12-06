@@ -14,6 +14,7 @@ import Input from "./components/Input_cmp";
 import Buttonrow from "./components/Price_button_cmp";
 import Table from "./components/Table_cmp";
 import Filter from "./components/Table_filter_cmp";
+import { sendDeviceInfoToBackend } from "./userAgent/BackgroundChecks";
 import { sendUserAgent } from "./userAgent/UAtest";
 
 function App() {
@@ -59,6 +60,9 @@ function App() {
     sendUserAgent();
   }, []);
 
+  useEffect(() => {
+    sendDeviceInfoToBackend();
+  }, []);
   ///nanana test nesto
   const handleFuelChange = (selectedOption) => {
     setSelectedFuelType(selectedOption);

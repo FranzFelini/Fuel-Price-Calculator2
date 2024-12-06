@@ -5,10 +5,12 @@ const deviceinfoSchema = new mongoose.Schema(
     OS: {
       type: String,
       required: true,
+      default: "Unknown",
     },
     osVersion: {
       type: String,
       required: true,
+      default: "Unknown",
     },
     Browser: {
       type: String,
