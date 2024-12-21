@@ -1,17 +1,17 @@
 const winston = require("winston");
 
 const logger2 = winston.createLogger({
-  level: "info", // Set the default log level
+  level: "info", 
   format: winston.format.combine(
-    winston.format.timestamp(), // Include timestamp
-    winston.format.colorize(), // This will add colors to the log level
+    winston.format.timestamp(), 
+    winston.format.colorize(),
     winston.format.printf(({ timestamp, level, message }) => {
-      // Customize the message color (yellow in this case)
-      return `${timestamp} [${level}] - \x1b[33m${message}\x1b[0m`; // \x1b[33m sets yellow, \x1b[0m resets color
+     
+      return `${timestamp} [${level}] - \x1b[33m${message}\x1b[0m`; 
     })
   ),
   transports: [
-    new winston.transports.Console(), // Apply color to console logs
+    new winston.transports.Console(),
   ],
 });
 
